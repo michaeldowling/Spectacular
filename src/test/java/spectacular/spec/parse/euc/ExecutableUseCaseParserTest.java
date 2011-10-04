@@ -1,8 +1,9 @@
-package spectacular.spec.parse;
+package spectacular.spec.parse.euc;
 
 
 import org.junit.Test;
 import spectacular.data.model.UseCase;
+import spectacular.spec.parse.euc.ExecutableUseCaseParser;
 
 import java.io.*;
 
@@ -42,6 +43,23 @@ public class ExecutableUseCaseParserTest {
         assertEquals(2, useCase.getAlternativeFlows().size());
         assertEquals("User using bad browser type", useCase.getAlternativeFlows().get(0).getFlowTitle());
         assertEquals("User using bad username", useCase.getAlternativeFlows().get(1).getFlowTitle());
+
+    }
+
+
+    @Test
+    public void testCanParseSpecWithNoFlows() throws Exception {
+
+        ExecutableUseCaseParser parser = new ExecutableUseCaseParser();
+        String spec = loadExampleSpec("src/test/resources/specs/euc/NoFlowExample.usecase");
+
+        UseCase useCase = parser.parse(spec);
+
+        assertNotNull(useCase);
+        assertEquals("Do something useful", useCase.getUseCaseTitle());
+        assertNull(useCase.getPrimaryFlow());
+        assertEquals(0, useCase.getAlternativeFlows().size());
+
 
     }
 

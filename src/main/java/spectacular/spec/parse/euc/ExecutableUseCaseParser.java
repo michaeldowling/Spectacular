@@ -1,9 +1,10 @@
-package spectacular.spec.parse;
+package spectacular.spec.parse.euc;
 
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import spectacular.data.model.*;
+import spectacular.spec.parse.SpecParser;
 
 import java.util.HashMap;
 import java.util.LinkedList;
