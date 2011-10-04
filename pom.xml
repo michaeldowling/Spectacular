@@ -16,6 +16,11 @@
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <version>2.5.1</version>
                 <configuration>
+                    <instrumentation>
+                        <ignores>
+                            <ignore>spectacular.data.model.*</ignore>
+                        </ignores>
+                    </instrumentation>
                     <formats>
                         <format>xml</format>
                         <format>html</format>
