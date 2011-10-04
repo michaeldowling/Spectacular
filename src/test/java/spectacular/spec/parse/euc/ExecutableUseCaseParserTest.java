@@ -13,6 +13,22 @@ public class ExecutableUseCaseParserTest {
 
 
     @Test
+    public void testCanParseSpecSinglePrimaryFlowZeroAlternateFlow() throws Exception {
+
+        ExecutableUseCaseParser parser = new ExecutableUseCaseParser();
+        String spec = loadExampleSpec("src/test/resources/specs/euc/SinglePrimaryFlowZeroAlternateFlowsExample.usecase");
+
+        UseCase useCase = parser.parse(spec);
+
+        assertNotNull(useCase);
+        assertEquals("Do something useful", useCase.getUseCaseTitle());
+        assertEquals("User does something useful", useCase.getPrimaryFlow().getFlowTitle());
+        assertEquals(0, useCase.getAlternativeFlows().size());
+
+    }
+
+
+    @Test
     public void testCanParseSpecSingleAlternateFlow() throws Exception {
 
         ExecutableUseCaseParser parser = new ExecutableUseCaseParser();
