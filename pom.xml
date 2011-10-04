@@ -9,7 +9,7 @@
     <version>2.0</version>
 
 
-    <reporting>
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -17,13 +17,13 @@
                 <version>2.5.1</version>
                 <configuration>
                     <formats>
-                        <format>html</format>
                         <format>xml</format>
+                        <format>html</format>
                     </formats>
                 </configuration>
             </plugin>
         </plugins>
-    </reporting>
+    </build>
 
     <dependencies>
 
