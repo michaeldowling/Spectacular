@@ -1,7 +1,6 @@
 package spectacular.spec.parse;
 
 
-import com.sun.tools.corba.se.idl.toJavaPortable.StringGen;
 import org.junit.Test;
 import spectacular.data.model.UseCase;
 
