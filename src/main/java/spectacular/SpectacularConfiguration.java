@@ -5,7 +5,8 @@ public class SpectacularConfiguration {
 
     private String useCasesBaseLocation = "./";
     private String useCasesBaseLocationIncludeFilter = "*.usecase";
-    private String actionScripts = "*.groovy";
+    private String stepActionBaseLocation = "./";
+    private String stepActionBaseLocationIncludeFilter = "*.groovy";
 
     public String getUseCasesBaseLocation() {
         return useCasesBaseLocation;
@@ -23,11 +24,19 @@ public class SpectacularConfiguration {
         this.useCasesBaseLocationIncludeFilter = useCasesBaseLocationIncludeFilter;
     }
 
-    public String getActionScripts() {
-        return actionScripts;
+    public String getStepActionBaseLocation() {
+        return stepActionBaseLocation;
     }
 
-    public void setActionScripts(String actionScripts) {
-        this.actionScripts = actionScripts;
+    public void setStepActionBaseLocation(String stepActionBaseLocation) {
+        this.stepActionBaseLocation = stepActionBaseLocation;
+    }
+
+    public String getStepActionBaseLocationIncludeFilter() {
+        return stepActionBaseLocationIncludeFilter;
+    }
+
+    public void setStepActionBaseLocationIncludeFilter(String stepActionBaseLocationIncludeFilter) {
+        this.stepActionBaseLocationIncludeFilter = stepActionBaseLocationIncludeFilter;
     }
 }

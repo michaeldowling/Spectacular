@@ -42,6 +42,22 @@ public class SpectacularSpineTest {
 
     }
 
+    @Test
+    public void testCanFindStepActionSpecificationsLifecycleStep() throws Exception {
+
+        SpectacularConfiguration config = new SpectacularConfiguration();
+        config.setStepActionBaseLocation("src/test/resources/specs/euc/findertest");
+        config.setStepActionBaseLocationIncludeFilter("*.actionsteps");
+
+        SpectacularSpine spine = new SpectacularSpine(config);
+        List<SpecFile> stepActions = spine.findStepActions();
+
+        assertNotNull(stepActions);
+        assertEquals(2, stepActions.size());
+
+
+    }
+
 
 
 
