@@ -1,0 +1,26 @@
+<project xmlns="http://maven.apache.org/DECORATION/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd"
+    name="Spectacular v2.0">
+
+    <body>
+
+        <menu name="Getting Started">
+            <item name="Home" href="/index.html" />
+            <item name="Download" href="download.html" />
+            <item name="Installation" href="installation.html" />
+        </menu>
+
+        <menu name="Users Guide">
+            <item name="Writing an Executable Use Case" href="/usersguide/writing-an-executable-use-case.html" />
+        </menu>
+
+
+        <menu name="Project Reports" ref="reports" />
+
+
+
+    </body>
+
+
+</project>

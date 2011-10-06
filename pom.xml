@@ -130,6 +130,36 @@
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <reportPlugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-project-info-reports-plugin</artifactId>
+                            <version>2.4</version>
+                            <configuration>
+                                <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+                                <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+                            </configuration>
+                            <!-- simpler configuration without reportSets available for usual cases
+                            <reports>
+                                <report>dependencies</report>
+                                <report>scm</report>
+                            </reports>
+                            -->
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-javadoc-plugin</artifactId>
+                            <version>2.8</version>
+                        </plugin>
+                    </reportPlugins>
+                </configuration>
+            </plugin>
+
         </plugins>
 
 
@@ -153,6 +183,44 @@
                 <artifactId>jdepend-maven-plugin</artifactId>
                 <version>2.0-beta-2</version>
             </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <instrumentation>
+                        <ignores>
+                            <ignore>spectacular.data.model.*</ignore>
+                        </ignores>
+                    </instrumentation>
+                    <formats>
+                        <format>xml</format>
+                        <format>html</format>
+                    </formats>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <targetJdk>1.6</targetJdk>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+
+
+                </configuration>
+            </plugin>
+
+
 
         </plugins>
     </reporting>
@@ -219,6 +287,95 @@
         </repository>
 
     </repositories>
+
+    <licenses>
+        <license>
+            <name>Apache 2</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>Minderupt Services, LLC</name>
+        <url>http://spectacular.minderupt.com/</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>michael</id>
+            <name>Michael Dowling</name>
+            <email>spam@minderupt.com</email>
+            <url>http://blog.minderupt.com/</url>
+            <organization>Minderupt Services, LLC</organization>
+            <organizationUrl>http://www.minderupt.com/</organizationUrl>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <timezone>-8</timezone>
+            <properties>
+                <picUrl></picUrl>
+            </properties>
+        </developer>
+    </developers>
+
+    <contributors>
+        <contributor>
+            <name>None Yet</name>
+            <email>none@spam.com</email>
+            <url>http://none.com</url>
+            <organization>None</organization>
+            <organizationUrl>http://none.com</organizationUrl>
+            <roles>
+                <role>tester</role>
+            </roles>
+            <timezone>-8</timezone>
+            <properties>
+                <gtalk>none@gmail.com</gtalk>
+            </properties>
+        </contributor>
+    </contributors>
+
+
+    <issueManagement>
+        <system>Pivotal Tracker</system>
+        <url>https://www.pivotaltracker.com/projects/38811</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>http://build.minderupt.com/jenkins/</url>
+        <notifiers>
+            <notifier>
+                <type>mail</type>
+                <sendOnError>true</sendOnError>
+                <sendOnFailure>true</sendOnFailure>
+                <sendOnSuccess>false</sendOnSuccess>
+                <sendOnWarning>false</sendOnWarning>
+                <configuration>
+                    <address>build.manager@minderupt.com</address>
+                </configuration>
+            </notifier>
+        </notifiers>
+    </ciManagement>
+
+    <mailingLists>
+        <mailingList>
+            <name>Spectacular Users</name>
+            <subscribe>spectacular-users-subscribe@googlegroups.com</subscribe>
+            <unsubscribe>spectacular-users-unsubscribe@googlegroups.com</unsubscribe>
+            <post>spectacular-users@googlegroups.com</post>
+            <archive>http://groups.google.com/spectacular-users</archive>
+        </mailingList>
+    </mailingLists>
+
+    <scm>
+        <connection>scm:git:https://github.com/michaeldowling/Spectacular.git</connection>
+        <tag>trunk</tag>
+        <url>https://github.com/michaeldowling/Spectacular</url>
+    </scm>
 
 
 </project>
