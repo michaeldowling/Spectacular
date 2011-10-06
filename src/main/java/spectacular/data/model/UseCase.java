@@ -4,7 +4,7 @@ package spectacular.data.model;
 import java.util.LinkedList;
 import java.util.List;
 
-public class UseCase {
+public class UseCase implements Executable {
 
 
     public static final String KEY_USE_CASE_TITLE = "USE CASE";
@@ -115,4 +115,10 @@ public class UseCase {
     public void addAlternativeFlow(Flow altFlow) {
         this.alternativeFlows.add(altFlow);
     }
+
+    public ExecutableType getExecutableType() {
+        return(ExecutableType.USE_CASE);
+    }
+
+
 }

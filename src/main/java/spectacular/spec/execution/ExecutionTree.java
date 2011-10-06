@@ -14,5 +14,10 @@ public class ExecutionTree {
     private List<ExecutableSpec> tree = new LinkedList<ExecutableSpec>();
 
 
+    public int getNextIdentifier() {
+        this.nextIdentifier++;
+        return(this.nextIdentifier);
+    }
+
 
 }
