@@ -5,7 +5,7 @@ class ExecutableUseCaseFlow {
 
     Map<String, Closure> flows = new HashMap<String, Closure>();
 
-    def static loadActionImplementations(String path) {
+    def static ExecutableUseCaseFlow loadActionImplementations(String path) {
 
         def flow = new ExecutableUseCaseFlow();
 
@@ -20,6 +20,8 @@ class ExecutableUseCaseFlow {
 
         }
 
+
+        return(flow);
 
     }
 
