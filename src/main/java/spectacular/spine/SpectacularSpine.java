@@ -5,7 +5,6 @@ import org.apache.commons.logging.LogFactory;
 import spectacular.SpectacularConfiguration;
 import spectacular.data.model.SpecFile;
 import spectacular.data.model.UseCase;
-import spectacular.data.model.UseCaseSpecFile;
 import spectacular.spec.finder.ExecutableUseCaseFinder;
 import spectacular.spec.finder.SpecFinder;
 import spectacular.spec.parse.euc.ExecutableUseCaseParser;
