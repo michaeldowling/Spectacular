@@ -7,8 +7,8 @@
 
         <menu name="Getting Started">
             <item name="Home" href="/index.html" />
-            <item name="Download" href="download.html" />
-            <item name="Installation" href="installation.html" />
+            <item name="Download" href="/getting-started/download.html" />
+            <item name="Installation" href="/getting-started/installation.html" />
         </menu>
 
         <menu name="Users Guide">
