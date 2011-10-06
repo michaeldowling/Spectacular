@@ -14,12 +14,25 @@ public class ExecutionTreeBuilder {
 
         for(UseCase useCase : useCases) {
 
-            ExecutableSpec spec = new ExecutableSpec(tree.getNextIdentifier(), useCase);
-
+            buildTree(tree, useCase);
 
         }
 
         return(tree);
+    }
+
+    private static void buildTree(ExecutionTree tree, UseCase useCase) {
+
+        // get upstreams
+        List<String> preconditionList = useCase.getPreconditions();
+        if(preconditionList == null) return;
+
+        for(String precondition : preconditionList) {
+
+
+
+        }
+
     }
 
 
