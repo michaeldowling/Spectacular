@@ -1,0 +1,11 @@
+<spectacular>
+
+    <use-cases>
+        <base-location>
+            <path></path>
+            <include></include>
+        </base-location>
+    </use-cases>
+
+
+</spectacular>

@@ -1,0 +1,14 @@
+
+Use Case: Do something useful
+Preconditions: None
+Postconditions: None
+Actors: User One, User Two
+
+Primary Flow: User does something useful
+
+1. User does something to initiate use case
+(1) System responds with the start of the use case
+2. User clicks on a link of some kind
+(2) System responds somehow
+
+
