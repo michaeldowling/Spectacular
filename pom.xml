@@ -106,6 +106,30 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appassembler-maven-plugin</artifactId>
+                <version>1.1.1</version>
+                <configuration>
+                    <programs>
+                        <program>
+                            <mainClass>spectacular.Spectacular</mainClass>
+                            <name>spectacular</name>
+                        </program>
+                    </programs>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2.1</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/spectacular-assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+            </plugin>
+
         </plugins>
 
 

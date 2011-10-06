@@ -1,8 +1,12 @@
 package spectacular.framework
 
+import org.apache.commons.logging.Log
+import org.apache.commons.logging.LogFactory
+
 
 class ExecutableUseCaseFlow {
 
+    private static Log LOGGER = LogFactory.getLog(ExecutableUseCaseFlow.class);
     Map<String, Closure> flows = new HashMap<String, Closure>();
 
     def static ExecutableUseCaseFlow loadActionImplementations(String path) {
@@ -10,16 +14,8 @@ class ExecutableUseCaseFlow {
         def flow = new ExecutableUseCaseFlow();
 
         def shell = new GroovyShell();
-        shell.setVariable("flow", flow);
-        shell.run(new File("src/test/groovy/spectacular/framework/ClassToMixinWith.groovy"));
-
-        for(action in flow.flows.keySet()) {
-
-            println "ACTION:  ${action}";
-            println "CLOSURE:  " + flow.flows.get(action).call();
-
-        }
-
+        shell.setVariable("step", flow);
+        shell.run(new File(path));
 
         return(flow);
 
@@ -29,7 +25,7 @@ class ExecutableUseCaseFlow {
 
     def Action(String pathToMatch, Closure closure) {
 
-        println "You passed in:  ${pathToMatch}";
+        if(LOGGER.isInfoEnabled()) LOGGER.info("Adding Action:  " + pathToMatch);
         this.flows.put(pathToMatch, closure);
 
 
