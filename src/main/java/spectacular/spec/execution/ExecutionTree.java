@@ -8,16 +8,25 @@ import java.util.Map;
 
 public class ExecutionTree {
 
-    private int nextIdentifier = 100;
+    /* key = use case name, value = use case */
+    private Map<String, ExecutableSpec> idToExecutableIndex = new HashMap<String, ExecutableSpec>();
 
-    private Map<Integer, ExecutableSpec> idToExecutableIndex = new HashMap<Integer, ExecutableSpec>();
-
+    /* Holds the tree */
     private List<ExecutableSpec> tree = new LinkedList<ExecutableSpec>();
 
+    /* unresolved use cases */
+    private Map<String, ExecutableSpec> unresolvedUseCases = new HashMap<String, ExecutableSpec>();
 
-    public int getNextIdentifier() {
-        this.nextIdentifier++;
-        return(this.nextIdentifier);
+    public ExecutionTree() {
+
+    }
+
+
+    public void addExecutableSpec(ExecutableSpec spec) {
+
+
+
+
     }
 
 
