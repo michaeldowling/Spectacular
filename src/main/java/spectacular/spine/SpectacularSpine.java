@@ -77,6 +77,13 @@ public class SpectacularSpine {
 
 
         // foreach use case
+        for(UseCase useCase : this.useCaseList) {
+
+            if(LOGGER.isInfoEnabled()) LOGGER.info("Building execution path for use case \"" + useCase.getUseCaseTitle() + "\"");
+
+
+
+        }
             // execute use case steps against actions
 
 

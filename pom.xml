@@ -286,6 +286,32 @@
             <url>https://repository.apache.org/content/groups/public</url>
         </repository>
 
+       <repository>
+            <id>build.minderupt.com</id>
+            <name>Minderupt SonaType Nexus Repository</name>
+            <url>http://build.minderupt.com/nexus/content/repositories/releases</url>
+        </repository>
+
+        <repository>
+            <id>codehaus-repo</id>
+            <name>Codehaus Repository</name>
+            <url>http://dist.codehaus.org/mule/dependencies/maven2</url>
+            <layout>default</layout>
+        </repository>
+
+        <repository>
+            <id>codehaus-nexus</id>
+            <name>Codehaus NEXUS Repository</name>
+            <url>https://nexus.codehaus.org/content/repositories/releases</url>
+            <layout>default</layout>
+        </repository>
+
+        <repository>
+            <id>spring-milestone</id>
+            <name>Spring Maven MILESTONE Repository</name>
+            <url>http://maven.springframework.org/milestone</url>
+        </repository>
+
     </repositories>
 
     <licenses>
