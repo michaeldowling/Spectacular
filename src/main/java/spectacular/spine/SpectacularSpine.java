@@ -12,8 +12,10 @@ import spectacular.spec.finder.StepActionFinder;
 import spectacular.spec.parse.euc.ExecutableUseCaseParser;
 import spectacular.spec.parse.euc.StepActionParser;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The "spine" of spectacular - in other words, this is how the lifecycle
@@ -29,7 +31,7 @@ public class SpectacularSpine {
 
 
     private List<SpecFile> specFileList = null;
-    private List<UseCase> useCaseList = null;
+    private Map<String, UseCase> useCaseInventory = null;
 
     private List<SpecFile> stepActionList = null;
     private List<StepActionChain> stepActionChainList = null;
@@ -39,7 +41,7 @@ public class SpectacularSpine {
         this.configuration = configuration;
         this.executableUseCaseParser = new ExecutableUseCaseParser();
         this.stepActionParser = new StepActionParser();
-        this.useCaseList = new LinkedList<UseCase>();
+        this.useCaseInventory = new HashMap<String, UseCase>();
         this.specFileList = new LinkedList<SpecFile>();
         this.stepActionList = new LinkedList<SpecFile>();
         this.stepActionChainList = new LinkedList<StepActionChain>();
@@ -55,7 +57,7 @@ public class SpectacularSpine {
             UseCase uc = parseUseCaseSpecification(specFile);
             if(uc != null) {
                 if(LOGGER.isInfoEnabled()) LOGGER.info("Use Case:  " + uc.getUseCaseTitle());
-                this.useCaseList.add(uc);
+                this.useCaseInventory.put(uc.getUseCaseTitle(), uc);
             }
         }
 
@@ -77,9 +79,9 @@ public class SpectacularSpine {
 
 
         // foreach use case
-        for(UseCase useCase : this.useCaseList) {
+        for(String useCaseTitle : this.useCaseInventory.keySet()) {
 
-            if(LOGGER.isInfoEnabled()) LOGGER.info("Building execution path for use case \"" + useCase.getUseCaseTitle() + "\"");
+            if(LOGGER.isInfoEnabled()) LOGGER.info("Building execution path for use case \"" + useCaseTitle + "\"");
 
 
 
