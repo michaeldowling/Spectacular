@@ -20,7 +20,10 @@ public class ExecutionTree {
 
         if(LOGGER.isInfoEnabled()) LOGGER.info("Building execution tree for (" + useCase.getUseCaseTitle() + ")");
         ExecutionTree tree = new ExecutionTree();
+
         tree.addUseCase(useCase);
+
+        /*
         List<String> preconditions = useCase.getPreconditions();
         for(String pc : preconditions) {
 
@@ -37,6 +40,7 @@ public class ExecutionTree {
             }
 
         }
+        */
 
         return(tree);
 

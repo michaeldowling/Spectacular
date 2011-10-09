@@ -34,10 +34,16 @@ public class ExecutionTreeTest {
         ExecutionTree tree = ExecutionTree.build(primaryUseCase, inventory);
 
         assertNotNull(tree);
+        assertEquals(1, tree.getTotalExecutions());
+        assertEquals("use case 1", tree.getNext().getUseCaseTitle());
+        assertNull(tree.getNext());
+        /*
+        assertNotNull(tree);
         assertEquals(2, tree.getTotalExecutions());
         assertEquals("use case 2 - before use case 1", tree.getNext().getUseCaseTitle());
         assertEquals("use case 1", tree.getNext().getUseCaseTitle());
         assertNull(tree.getNext());
+        */
 
     }
 
@@ -62,6 +68,16 @@ public class ExecutionTreeTest {
         ExecutionTree tree = ExecutionTree.build(primaryUseCase, inventory);
 
         assertNotNull(tree);
+        assertEquals(1, tree.getTotalExecutions());
+        assertEquals("use case 1", tree.getNext().getUseCaseTitle());
+        assertNull(tree.getNext());
+
+        tree.reset();
+        assertEquals("use case 1", tree.getNext().getUseCaseTitle());
+        assertNull(tree.getNext());
+
+        /*
+        assertNotNull(tree);
         assertEquals(2, tree.getTotalExecutions());
         assertEquals("use case 2 - before use case 1", tree.getNext().getUseCaseTitle());
         assertEquals("use case 1", tree.getNext().getUseCaseTitle());
@@ -71,7 +87,7 @@ public class ExecutionTreeTest {
         assertEquals("use case 2 - before use case 1", tree.getNext().getUseCaseTitle());
         assertEquals("use case 1", tree.getNext().getUseCaseTitle());
         assertNull(tree.getNext());
-
+        */
 
     }
 

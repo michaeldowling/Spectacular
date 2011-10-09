@@ -98,6 +98,8 @@ public class SpectacularSpine {
         for(String useCaseTitle : this.useCaseInventory.keySet()) {
 
             if(LOGGER.isInfoEnabled()) LOGGER.info("Building execution path for use case \"" + useCaseTitle + "\"");
+            UseCase useCase = this.useCaseInventory.get(useCaseTitle);
+
 
 
 
