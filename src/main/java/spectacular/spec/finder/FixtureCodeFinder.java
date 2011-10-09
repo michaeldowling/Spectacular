@@ -26,11 +26,11 @@ public class FixtureCodeFinder implements SpecFinder {
 
             if(LOGGER.isInfoEnabled()) LOGGER.info("Found:  " + file.getAbsolutePath());
             SpecFile sf = new UseCaseSpecFile(file.getAbsolutePath());
-            specFiles.add(sf);
+            specList.add(sf);
 
         }
 
-        return(specFiles);
+        return(specList);
 
     }
 }
