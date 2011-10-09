@@ -59,7 +59,20 @@ public class SpectacularSpineTest {
     }
 
 
+    @Test
+    public void testCanFindTestFixturesLifecycleStep() throws Exception {
 
+        SpectacularConfiguration config = new SpectacularConfiguration();
+        config.setFixtureCodeBaseLocation("src/test/resources/fixtures/euc/complex");
+        config.setFixtureCodeBaseLocationIncludeFilter("*.groovy");
+
+        SpectacularSpine spine = new SpectacularSpine(config);
+        List<SpecFile> fixtures = spine.findFixtureCode();
+
+        assertNotNull(fixtures);
+        assertEquals(6, fixtures.size());
+
+    }
 
 
 }

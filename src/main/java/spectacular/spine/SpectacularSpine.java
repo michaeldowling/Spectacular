@@ -1,11 +1,14 @@
 package spectacular.spine;
 
+import groovy.lang.Closure;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import spectacular.SpectacularConfiguration;
+import spectacular.data.model.Flow;
 import spectacular.data.model.SpecFile;
 import spectacular.data.model.StepActionChain;
 import spectacular.data.model.UseCase;
+import spectacular.framework.ExecutableUseCaseFlow;
 import spectacular.spec.finder.ExecutableUseCaseFinder;
 import spectacular.spec.finder.FixtureCodeFinder;
 import spectacular.spec.finder.SpecFinder;
@@ -37,6 +40,8 @@ public class SpectacularSpine {
     private List<SpecFile> stepActionList = null;
     private List<StepActionChain> stepActionChainList = null;
 
+    private Map<String, Closure> fixtureInventory = null;
+
 
     public SpectacularSpine(SpectacularConfiguration configuration) {
         this.configuration = configuration;
@@ -46,6 +51,7 @@ public class SpectacularSpine {
         this.specFileList = new LinkedList<SpecFile>();
         this.stepActionList = new LinkedList<SpecFile>();
         this.stepActionChainList = new LinkedList<StepActionChain>();
+        this.fixtureInventory = new HashMap<String, Closure>();
     }
 
     public void executeFullLifecycle() throws Exception {
@@ -79,7 +85,13 @@ public class SpectacularSpine {
         }
 
         if(LOGGER.isInfoEnabled()) LOGGER.info("Indexing automation code.");
-        findFixtureCode();
+        List<SpecFile> fixtures = findFixtureCode();
+        for(SpecFile fixtureFile : fixtures) {
+
+            ExecutableUseCaseFlow fixtureCode = ExecutableUseCaseFlow.loadActionImplementations(fixtureFile.getPath());
+            this.fixtureInventory.putAll(fixtureCode.getFlows());
+
+        }
 
 
         // foreach use case
@@ -96,11 +108,11 @@ public class SpectacularSpine {
 
     }
 
-    private void findFixtureCode() {
+    public List<SpecFile> findFixtureCode() {
 
         SpecFinder finder = new FixtureCodeFinder();
         List<SpecFile> specs = finder.findSpecFiles(this.configuration.getFixtureCodeBaseLocation(), this.configuration.getFixtureCodeBaseLocationIncludeFilter());
-
+        return(specs);
 
 
     }
