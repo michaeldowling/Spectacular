@@ -7,6 +7,7 @@ import spectacular.data.model.SpecFile;
 import spectacular.data.model.StepActionChain;
 import spectacular.data.model.UseCase;
 import spectacular.spec.finder.ExecutableUseCaseFinder;
+import spectacular.spec.finder.FixtureCodeFinder;
 import spectacular.spec.finder.SpecFinder;
 import spectacular.spec.finder.StepActionFinder;
 import spectacular.spec.parse.euc.ExecutableUseCaseParser;
@@ -98,6 +99,8 @@ public class SpectacularSpine {
     private void findFixtureCode() {
 
         SpecFinder finder = new FixtureCodeFinder();
+        List<SpecFile> specs = finder.findSpecFiles(this.configuration.getFixtureCodeBaseLocation(), this.configuration.getFixtureCodeBaseLocationIncludeFilter());
+
 
 
     }
