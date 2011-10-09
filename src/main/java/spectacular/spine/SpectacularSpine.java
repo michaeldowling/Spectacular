@@ -9,6 +9,7 @@ import spectacular.data.model.SpecFile;
 import spectacular.data.model.StepActionChain;
 import spectacular.data.model.UseCase;
 import spectacular.framework.ExecutableUseCaseFlow;
+import spectacular.spec.execution.ExecutionTree;
 import spectacular.spec.finder.ExecutableUseCaseFinder;
 import spectacular.spec.finder.FixtureCodeFinder;
 import spectacular.spec.finder.SpecFinder;
@@ -99,13 +100,29 @@ public class SpectacularSpine {
 
             if(LOGGER.isInfoEnabled()) LOGGER.info("Building execution path for use case \"" + useCaseTitle + "\"");
             UseCase useCase = this.useCaseInventory.get(useCaseTitle);
+            ExecutionTree tree = ExecutionTree.build(useCase, this.useCaseInventory);
 
+            if(LOGGER.isInfoEnabled()) LOGGER.info("Executing tree");
+            UseCase nextUseCase = tree.getNext();
+            while(nextUseCase != null) {
+
+                if(LOGGER.isInfoEnabled()) LOGGER.info("Executing: " + nextUseCase.getUseCaseTitle());
+                executeUseCase(nextUseCase);
+
+                nextUseCase = tree.getNext();
+
+            }
 
 
 
         }
             // execute use case steps against actions
 
+
+
+    }
+
+    public void executeUseCase(UseCase nextUseCase) {
 
 
     }
