@@ -77,6 +77,9 @@ public class SpectacularSpine {
 
         }
 
+        if(LOGGER.isInfoEnabled()) LOGGER.info("Indexing automation code.");
+        findFixtureCode();
+
 
         // foreach use case
         for(String useCaseTitle : this.useCaseInventory.keySet()) {
@@ -88,6 +91,13 @@ public class SpectacularSpine {
         }
             // execute use case steps against actions
 
+
+
+    }
+
+    private void findFixtureCode() {
+
+        SpecFinder finder = new FixtureCodeFinder();
 
 
     }

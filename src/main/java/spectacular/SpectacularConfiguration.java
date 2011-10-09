@@ -6,7 +6,9 @@ public class SpectacularConfiguration {
     private String useCasesBaseLocation = "./";
     private String useCasesBaseLocationIncludeFilter = "*.usecase";
     private String stepActionBaseLocation = "./";
-    private String stepActionBaseLocationIncludeFilter = "*.groovy";
+    private String stepActionBaseLocationIncludeFilter = "*.stepaction";
+    private String fixtureCodeBaseLocation = "./";
+    private String fixtureCodeBaseLocationIncludeFilter = "*.groovy";
 
     public String getUseCasesBaseLocation() {
         return useCasesBaseLocation;
@@ -38,5 +40,21 @@ public class SpectacularConfiguration {
 
     public void setStepActionBaseLocationIncludeFilter(String stepActionBaseLocationIncludeFilter) {
         this.stepActionBaseLocationIncludeFilter = stepActionBaseLocationIncludeFilter;
+    }
+
+    public String getFixtureCodeBaseLocation() {
+        return fixtureCodeBaseLocation;
+    }
+
+    public void setFixtureCodeBaseLocation(String fixtureCodeBaseLocation) {
+        this.fixtureCodeBaseLocation = fixtureCodeBaseLocation;
+    }
+
+    public String getFixtureCodeBaseLocationIncludeFilter() {
+        return fixtureCodeBaseLocationIncludeFilter;
+    }
+
+    public void setFixtureCodeBaseLocationIncludeFilter(String fixtureCodeBaseLocationIncludeFilter) {
+        this.fixtureCodeBaseLocationIncludeFilter = fixtureCodeBaseLocationIncludeFilter;
     }
 }

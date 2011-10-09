@@ -31,5 +31,9 @@ class ExecutableUseCaseFlow {
 
     }
 
+    def Map<String, Closure> getFlows() {
+        return(this.flows);
+    }
+
 
 }
