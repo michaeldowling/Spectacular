@@ -4,11 +4,10 @@ import groovy.lang.Closure;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import spectacular.SpectacularConfiguration;
-import spectacular.data.model.SpecFile;
-import spectacular.data.model.StepActionChain;
-import spectacular.data.model.UseCase;
+import spectacular.data.model.*;
 import spectacular.framework.ExecutableUseCaseFlow;
 import spectacular.spec.execution.ExecutionTree;
+import spectacular.spec.execution.UseCaseExecutor;
 import spectacular.spec.finder.ExecutableUseCaseFinder;
 import spectacular.spec.finder.FixtureCodeFinder;
 import spectacular.spec.finder.SpecFinder;
@@ -110,6 +109,7 @@ public class SpectacularSpine {
 
                 nextUseCase = tree.getNext();
 
+
             }
 
 
@@ -123,6 +123,15 @@ public class SpectacularSpine {
 
     public void executeUseCase(UseCase nextUseCase, Map<String, Closure> inventory, Map<String, StepActionChain> stepActions) {
 
+        UseCaseExecutor executor = new UseCaseExecutor();
+        UseCaseResult result = new UseCaseResult(nextUseCase);
+        try {
+            executor.execute(nextUseCase, stepActions, inventory, result);
+        } catch(Exception e) {
+            LOGGER.error("Unable to execute use case:  " + e);
+            result.setStatus(ExecutionResultStatus.FAIL);
+            result.setStatusCommentary(e.toString());
+        }
 
 
     }

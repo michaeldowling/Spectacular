@@ -43,6 +43,7 @@ public class UseCaseExecutor implements Executor<UseCase> {
         } catch(Exception e) {
             flowResult.setStatus(ExecutionResultStatus.FAIL);
             flowResult.setStatusCommentary("Error during execution:  " + e);
+            throw(new SpectacularException(e));
         }
 
 
@@ -70,7 +71,6 @@ public class UseCaseExecutor implements Executor<UseCase> {
                 stepResult.setStatusCommentary("Unable to find Actions matching this step.");
 
                 flowResult.setStatus(ExecutionResultStatus.PENDING);
-                break;
 
             }
             List<Action> actionList = stepActionChains.get(step.getStepTitle()).getActions();
