@@ -107,7 +107,7 @@ public class SpectacularSpine {
             while(nextUseCase != null) {
 
                 if(LOGGER.isInfoEnabled()) LOGGER.info("Executing: " + nextUseCase.getUseCaseTitle());
-                executeUseCase(nextUseCase);
+                executeUseCase(nextUseCase, this.fixtureInventory);
 
                 nextUseCase = tree.getNext();
 
@@ -122,7 +122,8 @@ public class SpectacularSpine {
 
     }
 
-    public void executeUseCase(UseCase nextUseCase) {
+    public void executeUseCase(UseCase nextUseCase, Map<String, Closure> inventory) {
+
 
 
     }
