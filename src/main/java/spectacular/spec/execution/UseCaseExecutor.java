@@ -112,9 +112,25 @@ public class UseCaseExecutor implements Executor<UseCase> {
 
         // find fixture
         String actionText = action.getActionText();
+        Closure closure = fixtureInventory.get(actionText);
+
+        if(closure == null) {
+            result.setStatus(ExecutionResultStatus.PENDING);
+            return(result);
+        }
+
+        try {
+            closure.call();
+        } catch(Exception e) {
+            result.setStatus(ExecutionResultStatus.FAIL);
+            result.setStatusCommentary(e.toString());
+            return(result);
+        }
 
 
+        result.setStatus(ExecutionResultStatus.PASS);
         return result;
+
     }
 
 
