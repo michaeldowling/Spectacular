@@ -3,11 +3,9 @@ package spectacular.spec.execution;
 
 import groovy.lang.Closure;
 import org.junit.Test;
-import spectacular.data.model.Executable;
-import spectacular.data.model.ExecutableType;
-import spectacular.data.model.ExecutionResult;
-import spectacular.data.model.UseCase;
+import spectacular.data.model.*;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -20,16 +18,26 @@ public class UseCaseExecutorTest {
 
         Executable exec = mock(Executable.class);
         ExecutionResult result = mock(ExecutionResult.class);
+        Map<String, StepActionChain> chains = mock(Map.class);
         Map<String, Closure> inventory = mock(Map.class);
+
         when(exec.getExecutableType()).thenReturn(ExecutableType.OTHER);
 
         UseCaseExecutor executor = new UseCaseExecutor();
         try {
-            executor.execute(exec, inventory, result);
+            executor.execute(exec, chains, inventory, result);
             fail("Should have thrown exception for this type.");
         } catch(SpectacularException se) {
             System.out.println("Caught as expected:  " + se);
         }
+
+
+    }
+
+    @Test
+    public void testWillExecuteUseCase() throws Exception {
+
+
 
 
     }

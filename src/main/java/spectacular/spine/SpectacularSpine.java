@@ -4,7 +4,6 @@ import groovy.lang.Closure;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import spectacular.SpectacularConfiguration;
-import spectacular.data.model.Flow;
 import spectacular.data.model.SpecFile;
 import spectacular.data.model.StepActionChain;
 import spectacular.data.model.UseCase;
@@ -39,7 +38,7 @@ public class SpectacularSpine {
     private Map<String, UseCase> useCaseInventory = null;
 
     private List<SpecFile> stepActionList = null;
-    private List<StepActionChain> stepActionChainList = null;
+    private Map<String, StepActionChain> stepActionChainInventory = null;
 
     private Map<String, Closure> fixtureInventory = null;
 
@@ -51,7 +50,7 @@ public class SpectacularSpine {
         this.useCaseInventory = new HashMap<String, UseCase>();
         this.specFileList = new LinkedList<SpecFile>();
         this.stepActionList = new LinkedList<SpecFile>();
-        this.stepActionChainList = new LinkedList<StepActionChain>();
+        this.stepActionChainInventory = new HashMap<String, StepActionChain>();
         this.fixtureInventory = new HashMap<String, Closure>();
     }
 
@@ -79,7 +78,7 @@ public class SpectacularSpine {
             if(chains != null) {
                 for(StepActionChain chain : chains) {
                     if(LOGGER.isInfoEnabled()) LOGGER.info("Step Action Chain: " + chain.getStepActionText());
-                    this.stepActionChainList.add(chain);
+                    this.stepActionChainInventory.put(chain.getStepActionText(), chain);
                 }
             }
 
@@ -107,7 +106,7 @@ public class SpectacularSpine {
             while(nextUseCase != null) {
 
                 if(LOGGER.isInfoEnabled()) LOGGER.info("Executing: " + nextUseCase.getUseCaseTitle());
-                executeUseCase(nextUseCase, this.fixtureInventory);
+                executeUseCase(nextUseCase, this.fixtureInventory, this.stepActionChainInventory);
 
                 nextUseCase = tree.getNext();
 
@@ -122,7 +121,7 @@ public class SpectacularSpine {
 
     }
 
-    public void executeUseCase(UseCase nextUseCase, Map<String, Closure> inventory) {
+    public void executeUseCase(UseCase nextUseCase, Map<String, Closure> inventory, Map<String, StepActionChain> stepActions) {
 
 
 
