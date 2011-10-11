@@ -105,7 +105,7 @@ public class SpectacularSpine {
             while(nextUseCase != null) {
 
                 if(LOGGER.isInfoEnabled()) LOGGER.info("Executing: " + nextUseCase.getUseCaseTitle());
-                executeUseCase(nextUseCase, this.fixtureInventory, this.stepActionChainInventory);
+                UseCaseResult useCaseResult = executeUseCase(nextUseCase, this.fixtureInventory, this.stepActionChainInventory);
 
                 nextUseCase = tree.getNext();
 
@@ -121,7 +121,7 @@ public class SpectacularSpine {
 
     }
 
-    public void executeUseCase(UseCase nextUseCase, Map<String, Closure> inventory, Map<String, StepActionChain> stepActions) {
+    public UseCaseResult executeUseCase(UseCase nextUseCase, Map<String, Closure> inventory, Map<String, StepActionChain> stepActions) {
 
         UseCaseExecutor executor = new UseCaseExecutor();
         UseCaseResult result = new UseCaseResult(nextUseCase);
@@ -133,6 +133,7 @@ public class SpectacularSpine {
             result.setStatusCommentary(e.toString());
         }
 
+        return(result);
 
     }
 
