@@ -13,6 +13,11 @@
 
         <menu name="Users Guide">
             <item name="Writing an Executable Use Case" href="/usersguide/writing-an-executable-use-case.html" />
+            <item name="Describing Use Case Steps as Actions" href="/usersguide/describing-use-case-steps-as-actions.html" />
+            <item name="Connecting Actions to Fixtures" href="/usersguide/connecting-actions-to-fixtures.html" />
+            <item name="Running Spectacular Against Executable Specs" href="/usersguide/running-spectacular-against-executable-specs.html" />
+            <item name="Project Files" href="/usersguide/project-files.html" />
+            <item name="Running Selenium / WebDriver" href="/usersguide/running-selenium-webdriver.html" />
         </menu>
 
 

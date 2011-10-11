@@ -1,7 +1,25 @@
 About Spectacular
 
-    Spectacular is a thing ...
+    Spectacular can be summarized as such:  Writing Effective Lightweight Use Cases that Don't Suck :)
 
+    In a nutshell, Spectacular is an automated {{{http://testobsessed.com/blog/2008/12/08/acceptance-test-driven-development-atdd-an-overview/}acceptence test-driven development (ATDD)}} / {{{http://behaviour-driven.org/}behavior-driven development (BDD)}} tool that
+    uses {{{http://alistair.cockburn.us/Examples+of+ultralight+use+cases}lightweight Use Cases}} as its {{{http://www.agilemodeling.com/essays/executableSpecifications.htm}Executable Specification}}.
+
+    Spectacular follows ATDD/BDD best practices.  Specs live in source control as plain-text files, written in the business user's
+    language.  Use case flows can be further broken out into re-usable Action steps, which are connected to the System-Under-Test (SUT)
+    by fixtures written in Groovy.
+
+    Since Fixtures are written in Groovy and executed on the JVM, you can call your SUT directly, or via Selenium/WebDriver!
+
+More Info
+
+    * {{{./getting-started/download.html}Getting Started:  Download Spectacular!}}
+
+    * {{{./getting-started/installation.html}Getting Started:  Installation}}
+
+    * {{{./usersguide/writing-an-executable-use-case.html}User's Guide:  Writing an Executable Use Case}}
+
+    []
 
 
 
