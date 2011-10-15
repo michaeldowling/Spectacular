@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * The "spine" of spectacular - in other words, this is how the lifecycle
@@ -37,9 +38,12 @@ public class SpectacularSpine {
     private Map<String, UseCase> useCaseInventory = null;
 
     private List<SpecFile> stepActionList = null;
+
     private Map<String, StepActionChain> stepActionChainInventory = null;
+    private Map<Pattern, StepActionChain> stepActionChainPatternInventory;
 
     private Map<String, Closure> fixtureInventory = null;
+    private Map<Pattern, Closure> fixturePatternInventory;
 
 
     public SpectacularSpine(SpectacularConfiguration configuration) {
@@ -49,8 +53,12 @@ public class SpectacularSpine {
         this.useCaseInventory = new HashMap<String, UseCase>();
         this.specFileList = new LinkedList<SpecFile>();
         this.stepActionList = new LinkedList<SpecFile>();
+
         this.stepActionChainInventory = new HashMap<String, StepActionChain>();
+        this.stepActionChainPatternInventory = new HashMap<Pattern, StepActionChain>();
         this.fixtureInventory = new HashMap<String, Closure>();
+        this.fixturePatternInventory = new HashMap<Pattern, Closure>();
+
     }
 
     public void executeFullLifecycle() throws Exception {
