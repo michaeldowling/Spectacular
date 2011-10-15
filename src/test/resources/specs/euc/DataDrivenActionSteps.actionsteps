@@ -1,0 +1,12 @@
+/This matches a use case step/
+
+    Do this ${emotion}
+    Then do something like this
+    But don't do this
+
+
+
+
+:DataDriven
+    emotion=happy,sad,glad,pissed
+    action=once,twice,thrice,four
