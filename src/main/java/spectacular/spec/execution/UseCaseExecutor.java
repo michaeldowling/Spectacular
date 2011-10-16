@@ -17,7 +17,7 @@ public class UseCaseExecutor implements Executor<UseCase> {
     private static Log LOGGER = LogFactory.getLog(UseCaseExecutor.class);
 
 
-    public void execute(Executable useCaseExecutable, Map<String, StepActionChain> stepActionChains, Map<String, Closure> fixtures, ExecutionResult result) throws SpectacularException {
+    public void execute(Executable useCaseExecutable, Map<String, StepActionChain> stepActionChains, FixtureInventory fixtures, ExecutionResult result) throws SpectacularException {
 
         if(!useCaseExecutable.getExecutableType().equals(ExecutableType.USE_CASE)) {
             throw(new SpectacularException("Support for " + useCaseExecutable.getExecutableType() + " is not supported at this time."));
@@ -49,7 +49,7 @@ public class UseCaseExecutor implements Executor<UseCase> {
 
     }
 
-    public FlowResult executeFlow(Flow flow, Map<String, StepActionChain> stepActionChains, Map<String, Closure> fixtureInventory, SpectacularExecutionContext context) throws Exception {
+    public FlowResult executeFlow(Flow flow, Map<String, StepActionChain> stepActionChains, FixtureInventory fixtureInventory, SpectacularExecutionContext context) throws Exception {
 
         if(LOGGER.isInfoEnabled()) LOGGER.info("\t\tFlow:  " + flow.getFlowTitle());
         FlowResult flowResult = new FlowResult(flow);
@@ -88,7 +88,7 @@ public class UseCaseExecutor implements Executor<UseCase> {
             for(Action action : actionList) {
 
                 if(LOGGER.isInfoEnabled()) LOGGER.info("\t\t\t\t**" + action.getActionText() + "**");
-                ActionResult actionResult = executeFixtureForAction(action, fixtureInventory);
+                ActionResult actionResult = executeFixtureForAction(action, fixtureInventory, context);
 
 
             }
@@ -105,22 +105,31 @@ public class UseCaseExecutor implements Executor<UseCase> {
 
     }
 
-    public ActionResult executeFixtureForAction(Action action, Map<String, Closure> fixtureInventory) {
+    public ActionResult executeFixtureForAction(Action action, FixtureInventory fixtureInventory, SpectacularExecutionContext context) {
 
         ActionResult result = new ActionResult(action);
         result.setStatus(ExecutionResultStatus.NOT_EXECUTED);
 
         // find fixture
         String actionText = action.getActionText();
-        Closure closure = fixtureInventory.get(actionText);
+        ExecutionInstance executionInstance = fixtureInventory.findExecutionInstanceForText(actionText);
 
-        if(closure == null) {
+        if(executionInstance == null) {
             result.setStatus(ExecutionResultStatus.PENDING);
             return(result);
         }
 
         try {
-            closure.call();
+
+            Object[] regexMatches = executionInstance.getRegexGroupMatches().toArray();
+
+            if(regexMatches != null && regexMatches.length > 0) {
+                executionInstance.getClosure().call(context, regexMatches);
+            } else {
+                executionInstance.getClosure().call(context);
+            }
+
+
         } catch(Exception e) {
             result.setStatus(ExecutionResultStatus.FAIL);
             result.setStatusCommentary(e.toString());

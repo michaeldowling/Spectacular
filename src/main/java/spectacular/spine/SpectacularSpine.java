@@ -42,8 +42,7 @@ public class SpectacularSpine {
     private Map<String, StepActionChain> stepActionChainInventory = null;
     private Map<Pattern, StepActionChain> stepActionChainPatternInventory;
 
-    private Map<String, Closure> fixtureInventory = null;
-    private Map<Pattern, Closure> fixturePatternInventory;
+    private FixtureInventory fixtureInventory = null;
 
 
     public SpectacularSpine(SpectacularConfiguration configuration) {
@@ -56,8 +55,7 @@ public class SpectacularSpine {
 
         this.stepActionChainInventory = new HashMap<String, StepActionChain>();
         this.stepActionChainPatternInventory = new HashMap<Pattern, StepActionChain>();
-        this.fixtureInventory = new HashMap<String, Closure>();
-        this.fixturePatternInventory = new HashMap<Pattern, Closure>();
+        this.fixtureInventory = new FixtureInventory();
 
     }
 
@@ -96,7 +94,7 @@ public class SpectacularSpine {
         for(SpecFile fixtureFile : fixtures) {
 
             ExecutableUseCaseFlow fixtureCode = ExecutableUseCaseFlow.loadActionImplementations(fixtureFile.getPath());
-            this.fixtureInventory.putAll(fixtureCode.getFlows());
+            this.fixtureInventory.setFixtures(fixtureCode.getFlows());
 
         }
 
@@ -129,7 +127,7 @@ public class SpectacularSpine {
 
     }
 
-    public UseCaseResult executeUseCase(UseCase nextUseCase, Map<String, Closure> inventory, Map<String, StepActionChain> stepActions) {
+    public UseCaseResult executeUseCase(UseCase nextUseCase, FixtureInventory inventory, Map<String, StepActionChain> stepActions) {
 
         UseCaseExecutor executor = new UseCaseExecutor();
         UseCaseResult result = new UseCaseResult(nextUseCase);

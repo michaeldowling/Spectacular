@@ -22,9 +22,9 @@ public class FixtureInventoryTest {
         inventory.addFixture("hello my name is tester", testerClosure);
         inventory.addFixture("hello my name is developer", devClosure);
 
-        Closure tester = inventory.findClosureForText("hello my name is tester");
+        ExecutionInstance tester = inventory.findExecutionInstanceForText("hello my name is tester");
         assertNotNull(tester);
-        assertEquals("tester", tester.toString());
+        assertEquals("tester", tester.getClosure().toString());
 
 
     }
@@ -43,13 +43,18 @@ public class FixtureInventoryTest {
         inventory.addFixture("hello my (.*?) is tester", testerClosure);
         inventory.addFixture("^(.*?) my (.*?) is developer", devClosure);
 
-        Closure tester = inventory.findClosureForText("hello my name is tester");
+        ExecutionInstance tester = inventory.findExecutionInstanceForText("hello my name is tester");
         assertNotNull(tester);
-        assertEquals("tester", tester.toString());
+        assertEquals("tester", tester.getClosure().toString());
+        assertEquals(1, tester.getRegexGroupMatches().size());
+        assertEquals("name", tester.getRegexGroupMatches().get(0));
 
-        Closure developer = inventory.findClosureForText("hello my name is developer");
+        ExecutionInstance developer = inventory.findExecutionInstanceForText("hello my name is developer");
         assertNotNull(developer);
-        assertEquals("developer", developer.toString());
+        assertEquals("developer", developer.getClosure().toString());
+        assertEquals(2, developer.getRegexGroupMatches().size());
+        assertEquals("hello", developer.getRegexGroupMatches().get(0));
+        assertEquals("name", developer.getRegexGroupMatches().get(1));
 
 
 

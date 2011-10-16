@@ -3,10 +3,7 @@ package spectacular.data.model;
 
 import groovy.lang.Closure;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,7 +19,10 @@ public class FixtureInventory {
 
 
     public void setFixtures(Map<String, Closure> fixtures) {
-        this.fixtures = fixtures;
+        this.fixturePatterns.clear();
+        for(String key : fixtures.keySet()) {
+            addFixture(key, fixtures.get(key));
+        }
     }
 
     public void addFixture(String matchText, Closure fixture) {
@@ -30,19 +30,31 @@ public class FixtureInventory {
         createPattern(matchText);
     }
 
-    public Closure findClosureForText(String text) {
+    public ExecutionInstance findExecutionInstanceForText(String text) {
 
         Closure closure = null;
+        ExecutionInstance executionInstance = null;
+
         for(Pattern pattern : this.fixturePatterns.keySet()) {
 
             Matcher matcher = pattern.matcher(text);
-            if(matcher.matches())
-                return this.fixtures.get(this.fixturePatterns.get(pattern));
+            if(matcher.matches()) {
+
+                List<String> regexMatches = new LinkedList<String>();
+                closure = this.fixtures.get(this.fixturePatterns.get(pattern));
+                for(int i = 1 ; i <= matcher.groupCount() ; i++) {
+                    String matchText = matcher.group(i);
+                    regexMatches.add(matchText);
+                }
+
+                executionInstance = new ExecutionInstance(closure, regexMatches);
+
+            }
 
 
         }
 
-        return(closure);
+        return(executionInstance);
 
     }
 

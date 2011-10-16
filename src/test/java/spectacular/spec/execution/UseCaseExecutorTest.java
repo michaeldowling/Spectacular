@@ -19,7 +19,7 @@ public class UseCaseExecutorTest {
         Executable exec = mock(Executable.class);
         ExecutionResult result = mock(ExecutionResult.class);
         Map<String, StepActionChain> chains = mock(Map.class);
-        Map<String, Closure> inventory = mock(Map.class);
+        FixtureInventory inventory = mock(FixtureInventory.class);
 
         when(exec.getExecutableType()).thenReturn(ExecutableType.OTHER);
 
