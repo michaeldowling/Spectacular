@@ -1,0 +1,34 @@
+
+Use Case: Do something useful
+Preconditions: None
+Postconditions: None
+Actors: User One, User Two
+
+Primary Flow: User does something useful
+
+1. User does something to initiate use case
+(1) System responds with the start of the use case
+2. User clicks on a link of some kind
+(2) System responds somehow
+
+
+Alternate Flow: User using bad browser type
+
+2. User clicks on a link of some kind
+(2) System responds with a message indicating a bad browser
+
+
+Alternate Flow: User using bad username
+
+2. User clicks on a remind password link
+(2) System responds with a form for resetting password
+3. User enters a new password and submits form
+(3) System resets password and sends an email notifying of new password
+
+
+Business Rules:
+
+Scenario
+Given some condition
+When the user does something
+Then we should be doing something

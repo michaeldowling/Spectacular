@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 public class StepActionParser implements SpecParser<List<StepActionChain>> {
 
-    private Pattern stepActionPattern = Pattern.compile("\\/(.+)\\/");
+    private Pattern stepActionPattern = Pattern.compile("\\[(.+)\\]");
     private Pattern actionPattern = Pattern.compile("\\.+");
 
     public List<StepActionChain> parse(String spec) {

@@ -10,6 +10,8 @@ public class SpectacularConfiguration {
     private String fixtureCodeBaseLocation = "./";
     private String fixtureCodeBaseLocationIncludeFilter = "*.groovy";
 
+    private String seleniumAwareDriver = "HTMLUNIT";
+
     public String getUseCasesBaseLocation() {
         return useCasesBaseLocation;
     }
@@ -56,5 +58,13 @@ public class SpectacularConfiguration {
 
     public void setFixtureCodeBaseLocationIncludeFilter(String fixtureCodeBaseLocationIncludeFilter) {
         this.fixtureCodeBaseLocationIncludeFilter = fixtureCodeBaseLocationIncludeFilter;
+    }
+
+    public String getSeleniumAwareDriver() {
+        return seleniumAwareDriver;
+    }
+
+    public void setSeleniumAwareDriver(String seleniumAwareDriver) {
+        this.seleniumAwareDriver = seleniumAwareDriver;
     }
 }

@@ -2,10 +2,29 @@
 
     <use-cases>
         <base-location>
-            <path></path>
-            <include></include>
+            <path>/some/place/to/go</path>
+            <include>*.someext</include>
         </base-location>
     </use-cases>
+
+    <step-actions>
+        <base-location>
+            <path>/some/other/place/to/go</path>
+            <include>*.actions</include>
+        </base-location>
+    </step-actions>
+
+    <fixtures>
+        <base-location>
+            <path>/some/other/fixture/place</path>
+            <include>*.groovy</include>
+        </base-location>
+    </fixtures>
+
+    <webdriver-aware>
+        <driver>FIREFOX</driver>
+    </webdriver-aware>
+
 
 
 </spectacular>

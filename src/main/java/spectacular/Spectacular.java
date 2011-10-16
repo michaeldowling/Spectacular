@@ -7,6 +7,7 @@ import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import spectacular.spine.SpectacularSpine;
 
 import java.io.File;
 
@@ -24,15 +25,23 @@ public class Spectacular {
         SpectacularConfiguration config = parseConfiguration(commandLine.getOptionValue("config", "./spectacular.xml"));
         printConfiguration(config);
 
+        SpectacularSpine spectacularSpine = new SpectacularSpine(config);
+
+        try {
+            spectacularSpine.executeFullLifecycle();
+        } catch(Exception e) {
+            LOGGER.fatal("Error executing spectacular lifecycle:  " + e);
+            System.exit(255);
+        }
 
 
     }
 
     private static void printConfiguration(SpectacularConfiguration config) {
 
-        System.out.println( "Configuration: \n" +
-                            "\tUse Case Base Location:  " + config.getUseCasesBaseLocation() + " \n" +
-                            "\tUse Case File Filter:  " + config.getUseCasesBaseLocationIncludeFilter() + " \n");
+        System.out.println("Configuration: \n" +
+                "\tUse Case Base Location:  " + config.getUseCasesBaseLocation() + " \n" +
+                "\tUse Case File Filter:  " + config.getUseCasesBaseLocationIncludeFilter() + " \n");
 
 
     }
@@ -40,7 +49,7 @@ public class Spectacular {
     private static SpectacularConfiguration parseConfiguration(String config) {
 
         File file = new File(config);
-        if(!file.exists()) {
+        if (!file.exists()) {
             LOGGER.fatal("Unable to find configuration file:  " + config);
             System.exit(1);
         }
@@ -48,29 +57,43 @@ public class Spectacular {
         Configuration conf = null;
         try {
             conf = new XMLConfiguration(file);
-        } catch(Exception e) {
+        } catch (Exception e) {
             LOGGER.fatal("Unable to parse configuration.", e);
             System.exit(1);
         }
 
         SpectacularConfiguration specConfig = new SpectacularConfiguration();
 
-        if(conf.containsKey("use-cases")) {
-
-            if(conf.containsKey("use-cases.base-location")) {
-
-                if(conf.containsKey("use-cases.base-location.path")) {
-                    specConfig.setUseCasesBaseLocation(conf.getString("use-cases.base-location.path", "./"));
-                }
-
-                if(conf.containsKey("use-cases.base-location.include")) {
-                    specConfig.setUseCasesBaseLocationIncludeFilter(conf.getString("use-cases.base-location.include", "*.usecase"));
-                }
-            }
-
+        if (conf.containsKey("use-cases.base-location.path")) {
+            specConfig.setUseCasesBaseLocation(conf.getString("use-cases.base-location.path", "./"));
         }
 
-        return(specConfig);
+        if (conf.containsKey("use-cases.base-location.include")) {
+            specConfig.setUseCasesBaseLocationIncludeFilter(conf.getString("use-cases.base-location.include", "*.usecase"));
+        }
+
+        if(conf.containsKey("step-actions.base-location.path")) {
+            specConfig.setStepActionBaseLocation(conf.getString("step-actions.base-location.path"));
+        }
+
+        if(conf.containsKey("step-actions.base-location.include")) {
+            specConfig.setStepActionBaseLocationIncludeFilter(conf.getString("step-actions.base-location.include"));
+        }
+
+        if(conf.containsKey("fixtures.base-location.path")) {
+            specConfig.setFixtureCodeBaseLocation(conf.getString("fixtures.base-location.path"));
+        }
+
+        if(conf.containsKey("fixtures.base-location.include")) {
+            specConfig.setFixtureCodeBaseLocationIncludeFilter(conf.getString("fixtures.base-location.include"));
+        }
+
+        if(conf.containsKey("webdriver-aware.driver")) {
+            specConfig.setSeleniumAwareDriver(conf.getString("webdriver-aware.driver", "HTMLUNIT"));
+        }
+
+
+        return (specConfig);
 
     }
 
@@ -84,27 +107,26 @@ public class Spectacular {
         CommandLine line = null;
         try {
             line = parser.parse(options, args);
-        } catch(Exception e) {
+        } catch (Exception e) {
             LOGGER.fatal("Unable to parse command line options.", e);
             System.exit(1);
         }
 
-        if(line.hasOption("h")) {
+        if (line.hasOption("h")) {
             HelpFormatter hf = new HelpFormatter();
             hf.printHelp("spectacular [options]", options);
             System.exit(0);
         }
 
 
-        return(line);
+        return (line);
 
     }
 
     private static void printSpectacularHeader() {
 
-        System.out.println( "Spectacular v2.0 \n" +
-                            "Apache License \n");
-
+        System.out.println("Spectacular v2.0 \n" +
+                "Apache License \n");
 
 
     }

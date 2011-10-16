@@ -2,6 +2,8 @@ package spectacular.data.model;
 
 
 import groovy.lang.Closure;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -9,6 +11,7 @@ import java.util.regex.Pattern;
 
 public class FixtureInventory {
 
+    private static Log LOGGER = LogFactory.getLog(FixtureInventory.class);
     private Map<String, Closure> fixtures;
     private Map<Pattern, String> fixturePatterns;
 
@@ -44,6 +47,7 @@ public class FixtureInventory {
                 closure = this.fixtures.get(this.fixturePatterns.get(pattern));
                 for(int i = 1 ; i <= matcher.groupCount() ; i++) {
                     String matchText = matcher.group(i);
+                    LOGGER.info("Text to replace:  " + matchText);
                     regexMatches.add(matchText);
                 }
 

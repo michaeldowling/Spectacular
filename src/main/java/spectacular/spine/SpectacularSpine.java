@@ -7,7 +7,9 @@ import spectacular.SpectacularConfiguration;
 import spectacular.data.model.*;
 import spectacular.framework.ExecutableUseCaseFlow;
 import spectacular.spec.execution.ExecutionTree;
+import spectacular.spec.execution.SpectacularExecutionContext;
 import spectacular.spec.execution.UseCaseExecutor;
+import spectacular.spec.execution.webdriver.WebDriverType;
 import spectacular.spec.finder.ExecutableUseCaseFinder;
 import spectacular.spec.finder.FixtureCodeFinder;
 import spectacular.spec.finder.SpecFinder;
@@ -59,41 +61,60 @@ public class SpectacularSpine {
         this.fixtureInventory = new FixtureInventory();
         this.useCaseExecutionResults = new LinkedList<UseCaseResult>();
 
+        // quick WebDriver check - yes?
+        initWebDriver(configuration);
+
+    }
+
+    private void initWebDriver(SpectacularConfiguration configuration) {
+        if (configuration.getSeleniumAwareDriver() != null) {
+
+            if (configuration.getSeleniumAwareDriver().equals(WebDriverType.HTMLUNIT))
+                SpectacularExecutionContext.initWebDriver(WebDriverType.HTMLUNIT);
+
+            if (configuration.getSeleniumAwareDriver().equals(WebDriverType.FIREFOX))
+                SpectacularExecutionContext.initWebDriver(WebDriverType.FIREFOX);
+
+            if (configuration.getSeleniumAwareDriver().equals(WebDriverType.CHROME))
+                SpectacularExecutionContext.initWebDriver(WebDriverType.CHROME);
+
+
+        }
     }
 
     public void executeFullLifecycle() throws Exception {
 
-        if(LOGGER.isInfoEnabled()) LOGGER.info("Finding use case specifications.");
+        if (LOGGER.isInfoEnabled()) LOGGER.info("Finding use case specifications.");
         this.specFileList = findUseCaseSpecifications();
 
-        if(LOGGER.isInfoEnabled()) LOGGER.info("Parsing specifications.");
-        for(SpecFile specFile : this.specFileList) {
+        if (LOGGER.isInfoEnabled()) LOGGER.info("Parsing specifications.");
+        for (SpecFile specFile : this.specFileList) {
             UseCase uc = parseUseCaseSpecification(specFile);
-            if(uc != null) {
-                if(LOGGER.isInfoEnabled()) LOGGER.info("Use Case:  " + uc.getUseCaseTitle());
+            if (uc != null) {
+                if (LOGGER.isInfoEnabled()) LOGGER.info("Use Case:  " + uc.getUseCaseTitle());
                 this.useCaseInventory.put(uc.getUseCaseTitle(), uc);
             }
         }
 
-        if(LOGGER.isInfoEnabled()) LOGGER.info("Finding step actions.");
+        if (LOGGER.isInfoEnabled()) LOGGER.info("Finding step actions.");
         this.stepActionList = findStepActions();
 
-        if(LOGGER.isInfoEnabled()) LOGGER.info("Parsing step actions.");
-        for(SpecFile specFile : this.stepActionList) {
+        if (LOGGER.isInfoEnabled()) LOGGER.info("Parsing step actions.");
+        for (SpecFile specFile : this.stepActionList) {
 
             List<StepActionChain> chains = parseStepActionSpecification(specFile);
-            if(chains != null) {
-                for(StepActionChain chain : chains) {
-                    if(LOGGER.isInfoEnabled()) LOGGER.info("Step Action Chain: " + chain.getStepActionText());
+            if (chains != null) {
+                for (StepActionChain chain : chains) {
+                    if (LOGGER.isInfoEnabled()) LOGGER.info("Step Action Chain: " + chain.getStepActionText());
                     this.stepActionChainInventory.put(chain.getStepActionText(), chain);
                 }
             }
 
         }
 
-        if(LOGGER.isInfoEnabled()) LOGGER.info("Indexing automation code.");
+        if (LOGGER.isInfoEnabled()) LOGGER.info("Indexing automation code.");
         List<SpecFile> fixtures = findFixtureCode();
-        for(SpecFile fixtureFile : fixtures) {
+        for (SpecFile fixtureFile : fixtures) {
 
             ExecutableUseCaseFlow fixtureCode = ExecutableUseCaseFlow.loadActionImplementations(fixtureFile.getPath());
             this.fixtureInventory.setFixtures(fixtureCode.getFlows());
@@ -102,17 +123,17 @@ public class SpectacularSpine {
 
 
         // foreach use case
-        for(String useCaseTitle : this.useCaseInventory.keySet()) {
+        for (String useCaseTitle : this.useCaseInventory.keySet()) {
 
-            if(LOGGER.isInfoEnabled()) LOGGER.info("Building execution path for use case \"" + useCaseTitle + "\"");
+            if (LOGGER.isInfoEnabled()) LOGGER.info("Building execution path for use case \"" + useCaseTitle + "\"");
             UseCase useCase = this.useCaseInventory.get(useCaseTitle);
             ExecutionTree tree = ExecutionTree.build(useCase, this.useCaseInventory);
 
-            if(LOGGER.isInfoEnabled()) LOGGER.info("Executing tree");
+            if (LOGGER.isInfoEnabled()) LOGGER.info("Executing tree");
             UseCase nextUseCase = tree.getNext();
-            while(nextUseCase != null) {
+            while (nextUseCase != null) {
 
-                if(LOGGER.isInfoEnabled()) LOGGER.info("Executing: " + nextUseCase.getUseCaseTitle());
+                if (LOGGER.isInfoEnabled()) LOGGER.info("Executing: " + nextUseCase.getUseCaseTitle());
                 UseCaseResult useCaseResult = executeUseCase(nextUseCase, this.fixtureInventory, this.stepActionChainInventory);
                 this.useCaseExecutionResults.add(useCaseResult);
 
@@ -122,9 +143,7 @@ public class SpectacularSpine {
             }
 
 
-
         }
-
 
 
     }
@@ -135,13 +154,13 @@ public class SpectacularSpine {
         UseCaseResult result = new UseCaseResult(nextUseCase);
         try {
             executor.execute(nextUseCase, stepActions, inventory, result);
-        } catch(Exception e) {
+        } catch (Exception e) {
             LOGGER.error("Unable to execute use case:  " + e);
             result.setStatus(ExecutionResultStatus.FAIL);
             result.setStatusCommentary(e.toString());
         }
 
-        return(result);
+        return (result);
 
     }
 
@@ -149,7 +168,7 @@ public class SpectacularSpine {
 
         SpecFinder finder = new FixtureCodeFinder();
         List<SpecFile> specs = finder.findSpecFiles(this.configuration.getFixtureCodeBaseLocation(), this.configuration.getFixtureCodeBaseLocationIncludeFilter());
-        return(specs);
+        return (specs);
 
 
     }
@@ -160,11 +179,11 @@ public class SpectacularSpine {
         try {
             chains = this.stepActionParser.parse(specFile.getContents());
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             LOGGER.error("Unable to parse Step Action:  " + specFile, e);
         }
 
-        return(chains);
+        return (chains);
 
     }
 
@@ -173,7 +192,7 @@ public class SpectacularSpine {
         SpecFinder finder = new StepActionFinder();
         List<SpecFile> specs = finder.findSpecFiles(this.configuration.getStepActionBaseLocation(), this.configuration.getStepActionBaseLocationIncludeFilter());
 
-        return(specs);
+        return (specs);
 
 
     }
@@ -183,7 +202,7 @@ public class SpectacularSpine {
         SpecFinder finder = new ExecutableUseCaseFinder();
         List<SpecFile> specs = finder.findSpecFiles(this.configuration.getUseCasesBaseLocation(), this.configuration.getUseCasesBaseLocationIncludeFilter());
 
-        return(specs);
+        return (specs);
     }
 
     public UseCase parseUseCaseSpecification(SpecFile specFile) {
@@ -191,11 +210,11 @@ public class SpectacularSpine {
         UseCase useCase = null;
         try {
             useCase = this.executableUseCaseParser.parse(specFile.getContents());
-        } catch(Exception e) {
+        } catch (Exception e) {
             LOGGER.error("Unable to parse use case:  " + specFile.getPath(), e);
         }
 
-        return(useCase);
+        return (useCase);
 
     }
 
