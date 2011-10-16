@@ -1,6 +1,8 @@
 package spectacular.spec.execution;
 
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -11,6 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SpectacularExecutionContext {
+
+    private static Log LOGGER = LogFactory.getLog(SpectacularExecutionContext.class);
 
     private Map<String, Object> contextAttributes;
     private static WebDriver webDriver;
@@ -33,6 +37,10 @@ public class SpectacularExecutionContext {
         return(SpectacularExecutionContext.webDriver);
     }
 
+    public void message(String message) {
+        if(LOGGER.isInfoEnabled()) LOGGER.info(message);
+    }
+
     public static void initWebDriver(WebDriverType type) {
 
         if(webDriver != null) return;
@@ -43,7 +51,7 @@ public class SpectacularExecutionContext {
         } else if(type.equals(WebDriverType.FIREFOX)) {
             SpectacularExecutionContext.webDriver = new FirefoxDriver();
         } else {
-
+            if(LOGGER.isInfoEnabled()) LOGGER.info("No valid WebDriver driver was specified.");
         }
 
 

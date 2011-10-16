@@ -67,19 +67,32 @@ public class SpectacularSpine {
     }
 
     private void initWebDriver(SpectacularConfiguration configuration) {
+
         if (configuration.getSeleniumAwareDriver() != null) {
 
-            if (configuration.getSeleniumAwareDriver().equals(WebDriverType.HTMLUNIT))
+            if(LOGGER.isInfoEnabled()) LOGGER.info("Creating a WebDriver Instance...");
+
+            if (configuration.getSeleniumAwareDriver().equals(WebDriverType.HTMLUNIT.toString())) {
+                if(LOGGER.isInfoEnabled()) LOGGER.info(".......creating instance of HTMLUNIT");
                 SpectacularExecutionContext.initWebDriver(WebDriverType.HTMLUNIT);
+            }
 
-            if (configuration.getSeleniumAwareDriver().equals(WebDriverType.FIREFOX))
+            if (configuration.getSeleniumAwareDriver().equals(WebDriverType.FIREFOX.toString())) {
+                if(LOGGER.isInfoEnabled()) LOGGER.info(".......creating instance of FIREFOX");
                 SpectacularExecutionContext.initWebDriver(WebDriverType.FIREFOX);
+            }
 
-            if (configuration.getSeleniumAwareDriver().equals(WebDriverType.CHROME))
+
+            if (configuration.getSeleniumAwareDriver().equals(WebDriverType.CHROME.toString())) {
+                if(LOGGER.isInfoEnabled()) LOGGER.info(".......creating instance of CHROME");
                 SpectacularExecutionContext.initWebDriver(WebDriverType.CHROME);
+            }
 
-
+        } else {
+            if(LOGGER.isInfoEnabled()) LOGGER.info("No WebDriver Instance Specified.");
         }
+
+
     }
 
     public void executeFullLifecycle() throws Exception {
