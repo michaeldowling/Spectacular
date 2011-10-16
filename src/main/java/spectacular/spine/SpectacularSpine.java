@@ -43,6 +43,7 @@ public class SpectacularSpine {
     private Map<Pattern, StepActionChain> stepActionChainPatternInventory;
 
     private FixtureInventory fixtureInventory = null;
+    private List<UseCaseResult> useCaseExecutionResults = null;
 
 
     public SpectacularSpine(SpectacularConfiguration configuration) {
@@ -56,6 +57,7 @@ public class SpectacularSpine {
         this.stepActionChainInventory = new HashMap<String, StepActionChain>();
         this.stepActionChainPatternInventory = new HashMap<Pattern, StepActionChain>();
         this.fixtureInventory = new FixtureInventory();
+        this.useCaseExecutionResults = new LinkedList<UseCaseResult>();
 
     }
 
@@ -112,6 +114,7 @@ public class SpectacularSpine {
 
                 if(LOGGER.isInfoEnabled()) LOGGER.info("Executing: " + nextUseCase.getUseCaseTitle());
                 UseCaseResult useCaseResult = executeUseCase(nextUseCase, this.fixtureInventory, this.stepActionChainInventory);
+                this.useCaseExecutionResults.add(useCaseResult);
 
                 nextUseCase = tree.getNext();
 
@@ -121,7 +124,6 @@ public class SpectacularSpine {
 
 
         }
-            // execute use case steps against actions
 
 
 
