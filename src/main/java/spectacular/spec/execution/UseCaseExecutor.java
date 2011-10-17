@@ -89,12 +89,15 @@ public class UseCaseExecutor implements Executor<UseCase> {
 
                 if (LOGGER.isInfoEnabled()) LOGGER.info("\t\t\t\t**" + action.getActionText() + "**");
                 ActionResult actionResult = executeFixtureForAction(action, fixtureInventory, context);
-
+                if(!actionResult.getStatus().equals(ExecutionResultStatus.PASS)) {
+                    stepResult.addActionResult(actionResult);
+                    stepResult.setStatus(ExecutionResultStatus.FAIL);
+                    break;
+                }
 
             }
 
             flowResult.addStepResult(stepResult);
-
 
         }
 
