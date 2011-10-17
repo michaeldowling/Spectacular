@@ -1,5 +1,17 @@
 Writing an Executable Use Case
 
+    Writing an executable use case is surprisingly easy!  Open up a text editor,
+    and follow a simple template made up of blocks.  A few simple rules:
+
+    * You must follow a particular format with some parts of the use case, but it is mostly free-form.
+
+    * You must start with the Attribute Block, made of key-value pairs of meta data. After this, you specify
+    a single Primary Flow and zero or more Alternate Flows.  Finally, at the end, you can describe additional
+    Business Rules that are executed in Gherkin.
+
+    * A single use case must be enclosed in a single file.  You cannot have more than one use case per file
+
+
 
 * Sample Use Case
 
@@ -27,14 +39,25 @@ Alternate Flow:  User enters email that already exists
 4. User submits form
 (4) System displays an error to the user informing them the email address already exists
 
+Business Rule:  Email Format
+
+    Scenario: Good email address
+    When the user enters "test@test.com" as their email address
+    Then the system accepts the email address as valid
+
+    Scenario: Malformed email address
+    When the user enters "test.test.com" as their email address
+    Then the system rejects the email address as malformed
+
 +----------------------------------------------
 
 
 * Blocks
 
-An executable use case is made up of a series of blocks - sections that have their own meaning.
+    An executable use case is made up of a series of blocks - sections that describe the use case and are
+    structured in a particular format.
 
-* Attribute Block
+** Attribute Block
 
 +-----------------------------------------------
 Use Case:  Do something useful
@@ -43,8 +66,22 @@ Postconditions: None
 Actors:  Non-signed up user
 +-----------------------------------------------
 
+    The attribute block must appear first, at the top of your executable use case file.  It describes the essential
+    meta data of the use case.  It must be formatted with the name of the meta data, a colon (":"), and the value of
+    the meta data.  The required meta data elements are:
 
-* Primary Flow Block
+    * "Use Case" - The name/title of the use case
+
+    * "Preconditions" - What must the state of the system and/or actors be before starting the use case?
+
+    * "Postconditions" - What must the state of the system and/or actors be after executing the use case?
+
+    * "Actors" - Who are the personas, user types, and or systems involved in executing the use case?
+
+    All other meta data elements are considered optional.
+
+
+** Primary Flow Block
 
 +-----------------------------------------------
 Primary Flow:  User signs up for service
@@ -63,7 +100,7 @@ Primary Flow:  User signs up for service
 
 
 
-* Alternate Flows Block(s)
+** Alternate Flows Block(s)
 
 +-----------------------------------------------
 Alternate Flow:  User enters email that already exists
@@ -75,5 +112,18 @@ Alternate Flow:  User enters email that already exists
 +-----------------------------------------------
 
 
+** Business Rules
 
++-----------------------------------------------
 
+Business Rule:  Email Format
+
+    Scenario: Good email address
+    When the user enters "test@test.com" as their email address
+    Then the system accepts the email address as valid
+
+    Scenario: Malformed email address
+    When the user enters "test.test.com" as their email address
+    Then the system rejects the email address as malformed
+
++-----------------------------------------------
