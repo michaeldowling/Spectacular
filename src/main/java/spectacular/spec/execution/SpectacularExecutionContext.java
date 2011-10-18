@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import spectacular.framework.webdriver.WebDriverHelper;
 import spectacular.spec.execution.webdriver.WebDriverType;
 
 import java.util.HashMap;
@@ -17,7 +18,7 @@ public class SpectacularExecutionContext {
     private static Log LOGGER = LogFactory.getLog(SpectacularExecutionContext.class);
 
     private Map<String, Object> contextAttributes;
-    private static WebDriver webDriver;
+    private static WebDriverHelper webDriver;
 
 
 
@@ -33,7 +34,7 @@ public class SpectacularExecutionContext {
         this.contextAttributes.put(key, value);
     }
 
-    public WebDriver getWebDriver() {
+    public WebDriverHelper getWebDriver() {
         return(SpectacularExecutionContext.webDriver);
     }
 
@@ -45,11 +46,11 @@ public class SpectacularExecutionContext {
 
         if(webDriver != null) return;
         if(type.equals(WebDriverType.HTMLUNIT)) {
-            SpectacularExecutionContext.webDriver = new HtmlUnitDriver();
+            SpectacularExecutionContext.webDriver = new WebDriverHelper(new HtmlUnitDriver());
         } else if(type.equals(WebDriverType.CHROME)) {
-            SpectacularExecutionContext.webDriver = new ChromeDriver();
+            SpectacularExecutionContext.webDriver = new WebDriverHelper(new ChromeDriver());
         } else if(type.equals(WebDriverType.FIREFOX)) {
-            SpectacularExecutionContext.webDriver = new FirefoxDriver();
+            SpectacularExecutionContext.webDriver = new WebDriverHelper(new FirefoxDriver());
         } else {
             if(LOGGER.isInfoEnabled()) LOGGER.info("No valid WebDriver driver was specified.");
         }
