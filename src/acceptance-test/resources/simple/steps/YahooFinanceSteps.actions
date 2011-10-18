@@ -1,0 +1,28 @@
+[User navigates to the Yahoo Finance landing view]
+
+    Open browser
+    Go to "http://finance.yahoo.com/"
+
+
+[System displays the Yahoo Finance landing view]
+
+    Verify user can see "Top Stories"
+    Verify user can see "Market Summary"
+
+[User enters a stock symbol and submits the form]
+
+    Enter "WFC" in quote form
+    Click "Get Quotes"
+
+
+[System looks up the 15-minute delayed price]
+
+    Verify company name as "Wells Fargo & Company Common St"
+    Verify stock symbol as "NYSE: WFC"
+
+[System displays current 15-minute delayed price for stock symbol]
+
+    Verify graph as for "Wells Fargo & Company Common St"
+    Verify graph symbol for "WFC"
+
+

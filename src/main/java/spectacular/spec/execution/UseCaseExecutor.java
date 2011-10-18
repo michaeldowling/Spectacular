@@ -51,14 +51,14 @@ public class UseCaseExecutor implements Executor<UseCase> {
 
     public FlowResult executeFlow(Flow flow, Map<String, StepActionChain> stepActionChains, FixtureInventory fixtureInventory, SpectacularExecutionContext context) throws Exception {
 
-        if (LOGGER.isInfoEnabled()) LOGGER.info("\t\tFlow:  " + flow.getFlowTitle());
+        if (LOGGER.isInfoEnabled()) LOGGER.info("Flow:  " + flow.getFlowTitle());
         FlowResult flowResult = new FlowResult(flow);
         flowResult.setStatus(ExecutionResultStatus.NOT_EXECUTED);
 
         List<Step> stepList = flow.getSteps();
         for (Step step : stepList) {
 
-            if (LOGGER.isInfoEnabled()) LOGGER.info("\t\t\tStep (" + step.getStepType() + "):  " + step.getStepTitle());
+            if (LOGGER.isInfoEnabled()) LOGGER.info("  Step (" + step.getStepType() + "):  " + step.getStepTitle());
             StepResult stepResult = new StepResult(step);
 
 
@@ -66,7 +66,7 @@ public class UseCaseExecutor implements Executor<UseCase> {
             StepActionChain chain = stepActionChains.get(step.getStepTitle());
             if (chain == null) {
 
-                if (LOGGER.isInfoEnabled()) LOGGER.info("\t\t\tPENDING:  NO ACTION CHAINS FOR THIS STEP");
+                if (LOGGER.isInfoEnabled()) LOGGER.info("\t\tPENDING:  NO ACTION CHAINS FOR THIS STEP");
                 stepResult.setStatus(ExecutionResultStatus.PENDING);
                 stepResult.setStatusCommentary("Unable to find Actions matching this step.");
 
@@ -76,7 +76,7 @@ public class UseCaseExecutor implements Executor<UseCase> {
             List<Action> actionList = stepActionChains.get(step.getStepTitle()).getActions();
             if (actionList == null) {
 
-                if (LOGGER.isInfoEnabled()) LOGGER.info("\t\t\tPENDING:  NO ACTIONS FOR THIS CHAIN");
+                if (LOGGER.isInfoEnabled()) LOGGER.info("\t\tPENDING:  NO ACTIONS FOR THIS CHAIN");
                 stepResult.setStatus(ExecutionResultStatus.PENDING);
                 stepResult.setStatusCommentary("Unable to find Action List matching this step.");
 
@@ -84,16 +84,20 @@ public class UseCaseExecutor implements Executor<UseCase> {
 
             }
 
-            if (LOGGER.isInfoEnabled()) LOGGER.info("\t\t\tExecuting actions...");
+            if (LOGGER.isInfoEnabled()) LOGGER.info("    Executing actions...");
             for (Action action : actionList) {
 
-                if (LOGGER.isInfoEnabled()) LOGGER.info("\t\t\t\t**" + action.getActionText() + "**");
+                if (LOGGER.isInfoEnabled()) LOGGER.info("      **" + action.getActionText() + "**");
                 ActionResult actionResult = executeFixtureForAction(action, fixtureInventory, context);
+                stepResult.addActionResult(actionResult);
+
+                /*
                 if(!actionResult.getStatus().equals(ExecutionResultStatus.PASS)) {
                     stepResult.addActionResult(actionResult);
                     stepResult.setStatus(ExecutionResultStatus.FAIL);
                     break;
                 }
+                */
 
             }
 

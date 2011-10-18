@@ -1,0 +1,18 @@
+
+Use Case: Look up stock symbol
+Preconditions: None
+Postconditions: None
+Actors: Web User
+
+
+Primary Flow: Look up a stock symbol from front landing view
+
+1. User navigates to the Yahoo Finance landing view
+(1) System displays the Yahoo Finance landing view
+2. User enters a stock symbol and submits the form
+(2) System looks up the 15-minute delayed price
+(2) System displays current 15-minute delayed price for stock symbol
+3. User enters a stock symbol and submits the form
+(3) System looks up the 15-minute delayed price
+(3) System displays current 15-minute delayed price for stock symbol
+

@@ -47,8 +47,9 @@ public class FixtureInventory {
                 closure = this.fixtures.get(this.fixturePatterns.get(pattern));
                 for(int i = 1 ; i <= matcher.groupCount() ; i++) {
                     String matchText = matcher.group(i);
-                    LOGGER.info("Text to replace:  " + matchText);
                     regexMatches.add(matchText);
+                    //LOGGER.info("Text to replace:  " + matchText);
+
                 }
 
                 executionInstance = new ExecutionInstance(closure, regexMatches);
