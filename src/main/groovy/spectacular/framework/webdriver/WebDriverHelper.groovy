@@ -10,8 +10,6 @@ class WebDriverHelper {
 
     WebDriver driver;
 
-
-
     WebDriverHelper(WebDriver d) {
         this.driver = d;
     }
@@ -34,10 +32,7 @@ class WebDriverHelper {
     }
 
     def methodMissing(String methodName, args) {
-
         return(this.driver.invokeMethod(methodName, args));
-
-
     }
 
 

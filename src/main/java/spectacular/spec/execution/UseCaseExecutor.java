@@ -55,8 +55,16 @@ public class UseCaseExecutor implements Executor<UseCase> {
         FlowResult flowResult = new FlowResult(flow);
         flowResult.setStatus(ExecutionResultStatus.NOT_EXECUTED);
 
+        boolean continueSteps = true;
         List<Step> stepList = flow.getSteps();
         for (Step step : stepList) {
+
+            if(!continueSteps) {
+                StepResult sr = new StepResult(step);
+                sr.setStatus(ExecutionResultStatus.NOT_EXECUTED);
+                flowResult.addStepResult(sr);
+                continue;
+            }
 
             if (LOGGER.isInfoEnabled()) LOGGER.info("  Step (" + step.getStepType() + "):  " + step.getStepTitle());
             StepResult stepResult = new StepResult(step);
@@ -71,6 +79,8 @@ public class UseCaseExecutor implements Executor<UseCase> {
                 stepResult.setStatusCommentary("Unable to find Actions matching this step.");
 
                 flowResult.setStatus(ExecutionResultStatus.PENDING);
+                continueSteps = false;
+
 
             }
             List<Action> actionList = stepActionChains.get(step.getStepTitle()).getActions();
@@ -81,23 +91,31 @@ public class UseCaseExecutor implements Executor<UseCase> {
                 stepResult.setStatusCommentary("Unable to find Action List matching this step.");
 
                 flowResult.setStatus(ExecutionResultStatus.PENDING);
+                continueSteps = false;
 
             }
 
             if (LOGGER.isInfoEnabled()) LOGGER.info("    Executing actions...");
+            boolean continueActions = true;
             for (Action action : actionList) {
+
+                if(!continueActions) {
+                    ActionResult notPerformedResult = new ActionResult(action);
+                    notPerformedResult.setStatus(ExecutionResultStatus.NOT_EXECUTED);
+                    stepResult.addActionResult(notPerformedResult);
+                    continue;
+                }
+
 
                 if (LOGGER.isInfoEnabled()) LOGGER.info("      **" + action.getActionText() + "**");
                 ActionResult actionResult = executeFixtureForAction(action, fixtureInventory, context);
                 stepResult.addActionResult(actionResult);
 
-                /*
                 if(!actionResult.getStatus().equals(ExecutionResultStatus.PASS)) {
                     stepResult.addActionResult(actionResult);
                     stepResult.setStatus(ExecutionResultStatus.FAIL);
-                    break;
+                    continueActions = false;
                 }
-                */
 
             }
 
