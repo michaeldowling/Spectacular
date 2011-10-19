@@ -27,4 +27,8 @@ public class AbstractExecutionResult<T> implements ExecutionResult {
     public void setStatusCommentary(String commentary) {
        this.commentary = commentary;
     }
+
+    public T getExecutableItem() {
+        return(this.executableItem);
+    }
 }
