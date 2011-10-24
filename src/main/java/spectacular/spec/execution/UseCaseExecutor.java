@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import spectacular.data.model.*;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -25,6 +26,8 @@ public class UseCaseExecutor implements Executor<UseCase> {
 
 
         UseCase useCase = (UseCase) useCaseExecutable;
+        UseCaseResult useCaseResult = (UseCaseResult) result;
+
         if (LOGGER.isInfoEnabled()) LOGGER.info("Executing use case:  " + useCase.getUseCaseTitle());
         SpectacularExecutionContext context = new SpectacularExecutionContext();
 
@@ -36,16 +39,55 @@ public class UseCaseExecutor implements Executor<UseCase> {
         }
 
         if (LOGGER.isInfoEnabled()) LOGGER.info("\tExecuting Primary Flow\n" + LOGGER_SEPARATOR);
-        Flow flow = useCase.getPrimaryFlow();
+        Flow primaryFlow = useCase.getPrimaryFlow();
         FlowResult flowResult = null;
         try {
-            flowResult = executeFlow(flow, stepActionChains, fixtures, context);
+            flowResult = executeFlow(primaryFlow, stepActionChains, fixtures, context);
+            useCaseResult.setPrimaryFlow(flowResult);
         } catch (Exception e) {
             flowResult.setStatus(ExecutionResultStatus.FAIL);
             flowResult.setStatusCommentary("Error during execution:  " + e);
+            useCaseResult.setPrimaryFlow(flowResult);
             throw (new SpectacularException(e));
         }
 
+
+        if(LOGGER.isInfoEnabled()) LOGGER.info("\tExecuting Alternate Flows\n" + LOGGER_SEPARATOR);
+        for(Flow altFlow : useCase.getAlternativeFlows()) {
+
+            altFlow = flushAlternateFlow(primaryFlow, altFlow);
+            FlowResult altFlowResult = new FlowResult(altFlow);
+
+            try {
+                altFlowResult = executeFlow(altFlow, stepActionChains, fixtures, context);
+                useCaseResult.addAlternateFlow(altFlowResult);
+            } catch(Exception e) {
+                altFlowResult.setStatus(ExecutionResultStatus.FAIL);
+                altFlowResult.setStatusCommentary("Error during execution:  " + e);
+                useCaseResult.addAlternateFlow(altFlowResult);
+                throw(new SpectacularException(e));
+            }
+
+        }
+
+
+
+    }
+
+    public Flow flushAlternateFlow(Flow primaryFlow, Flow altFlow) {
+
+        List<Step> flushed = new LinkedList<Step>();
+        List<Step> primarySteps = primaryFlow.getSteps();
+        List<Step> altSteps = altFlow.getSteps();
+
+        int firstStepId = Integer.parseInt(altSteps.get(0).getId());
+        for(int i = 0 ; i < (firstStepId - 1) ; i++) {
+            flushed.add(primarySteps.get(i));
+        }
+
+        flushed.addAll(altSteps);
+        altFlow.setSteps(flushed);
+        return(altFlow);
 
     }
 

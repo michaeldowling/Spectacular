@@ -3,16 +3,18 @@ package spectacular.spine;
 
 import org.junit.Test;
 import spectacular.SpectacularConfiguration;
-import spectacular.data.model.SpecFile;
-import spectacular.data.model.UseCase;
-import spectacular.data.model.UseCaseSpecFile;
+import spectacular.data.model.*;
 
 import java.io.File;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class SpectacularSpineTest {
+
+
+
 
     @Test
     public void testCanFindExecutableUseCaseSpecificationsLifecycleStep() throws Exception {
