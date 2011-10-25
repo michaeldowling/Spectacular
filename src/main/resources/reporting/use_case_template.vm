@@ -1,0 +1,216 @@
+<html>
+
+<head>
+    <title>Use Case: $useCase.getUseCaseTitle()</title>
+
+    <style type="text/css">
+
+        .use-case-metadata-box {
+            border: black solid 1px;
+        }
+
+        .use-case-status-pass {
+            color: white;
+            background-color: green;
+        }
+
+        .use-case-status-fail {
+            color: black;
+            background-color: red;
+        }
+
+        .use-case-metadata-key {
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .use-case-metadata-value {
+            text-align: left;
+        }
+
+        .use-case-metadata-table-container {
+            border: none;
+        }
+
+        .use-case-steps-container {
+            border: black solid 2px;
+            padding: 5px;
+
+        }
+
+        .step-header {
+            text-align: left;
+            vertical-align: top;
+            font-weight: bold;
+            background-color: #696969;
+        }
+
+        .step-row-a {
+            background-color: #d3d3d3;
+        }
+
+        .step-row-b {
+            background-color: white;
+        }
+
+        .step-cell {
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .action-result-text-pass {
+            font-weight: bold;
+            color: green;
+        }
+
+        .action-result-text-fail {
+            font-weight: bold;
+            color: red;
+        }
+
+        .action-result-text-fail-reason {
+            font-style: italic;
+            color: black;
+        }
+
+        .action-result-text-pending {
+            font-weight: bold;
+            color: #b8860b;
+        }
+
+        .action-result-text-not-performed {
+            font-weight: bold;
+            font-style: italic;
+            color: #9370db;
+        }
+
+        .use-case-status {
+            font-weight: bolder;
+        }
+
+        .flow-title {
+
+        }
+
+
+    </style>
+
+
+</head>
+
+
+<body>
+
+
+<h1 class="use-case-header-title">Use Case: $useCase.getUseCaseTitle()</h1>
+
+<h2 class="use-case-status-fail">$result.</h2>
+
+<div id="use-case-metadata" class="use-case-metadata-box">
+
+    <table id="use-case-metadata-table" class="use-case-metadata-table-container">
+        <tr>
+            <td class="use-case-metadata-key">Preconditions:</td>
+            <td class="use-case-metadata-value">None</td>
+        </tr>
+        <tr>
+            <td class="use-case-metadata-key">Postconditions:</td>
+            <td class="use-case-metadata-value">None</td>
+        </tr>
+        <tr>
+            <td class="use-case-metadata-key">Actors:</td>
+            <td class="use-case-metadata-value">Unauthenticated Web User, Authenticated Web User</td>
+        </tr>
+    </table>
+
+</div>
+
+<hr/>
+
+<div id="use-case-steps" class="use-case-steps-box">
+
+    <h2 class="flow-title">Primary Flow: Do something useful</h2>
+
+    <table id="use-case-steps-table" class="use-case-steps-container">
+
+        <tr>
+            <td id="use-case-id-step-header" class="step-header">ID</td>
+            <td id="use-case-user-action-step-header" class="step-header">User Action</td>
+            <td id="use-case-system-response-step-header" class="step-header">System Response</td>
+        </tr>
+
+        <tr class="step-row-a">
+            <td id="use-case-id-step-1" class="step-cell">1</td>
+            <td id="use-case-user-action-step-1" class="step-cell">
+                User performs some action to do something
+                <div id="use-case-user-action-step-1-action-list" class="use-case-user-action-step">
+                    <ul id="action-step-list-1" class="action-step-list">
+                        <li class="action-step-list-item">Open browser <span
+                                class="action-result-text-pass">(PASS)</span></li>
+                        <li class="action-step-list-item">Go to "http://www.something.com/" <span
+                                class="action-result-text-pass">(PASS)</span></li>
+                    </ul>
+                </div>
+            </td>
+            <td id="use-case-system-response-step-1" class="step-cell">
+                System responds to the user in some kind of way
+                <div id="use-case-system-response-step-1-action-list" class="use-case-system-response-action-step">
+                    <ul id="response-step-list-1" class="action-step-list">
+                        <li class="action-step-list-item">Verify landing page <span class="action-result-text-pass">(PASS)</span>
+                        </li>
+                        <li class="action-step-list-item">Verify title as "This is a page title" <span
+                                class="action-result-text-fail">(FAIL)</span> - <span
+                                class="action-result-text-fail-reason">Expected "This is a page title" but was actually "This is a different page title"</span>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+
+        <tr class="step-row-b">
+            <td id="use-case-id-step-2" class="step-cell">2</td>
+            <td id="use-case-user-action-step-2" class="step-cell">
+                User performs some other thing that needs multiple system responses
+                <div id="use-case-user-action-step-2-action-list" class="use-case-user-action-step">
+                    <ul id="action-step-list-2" class="action-step-list">
+                        <li class="action-step-list-item">Click link "Login" <span
+                                class="action-result-text-not-performed">(NOT PERFORMED)</span></li>
+                    </ul>
+                </div>
+            </td>
+            <td id="use-case-system-response-step-2" class="step-cell">
+                System responds in the first way
+                <div id="use-case-system-response-step-2-action-list" class="use-case-system-response-action-step">
+                    <ul id="response-step-list-2" class="action-step-list">
+                        <li class="action-step-list-item">Verify title as "Some other page title" <span
+                                class="action-result-text-not-performed">(NOT PERFORMED)</li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+
+        <tr class="step-row-a">
+            <td id="use-case-id-step-2-1" class="step-cell">&nbsp;</td>
+            <td id="use-case-user-action-step-2-1" class="step-cell">&nbsp;</td>
+            <td id="use-case-system-response-step-2-1" class="step-cell">
+                System responds in a second and final form
+                <div id="use-case-system-response-step-2-1-action-list" class="use-case-system-response-action-step">
+                    <ul id="response-step-list-2-1" class="action-step-list">
+                        <li class="action-step-list-item">Verify login form present <span
+                                class="action-result-text-not-performed">(NOT PERFORMED)</li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+
+
+    </table>
+
+
+</div>
+
+
+</body>
+
+
+</html>
