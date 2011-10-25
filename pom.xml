@@ -221,7 +221,6 @@
             </plugin>
 
 
-
         </plugins>
     </reporting>
 
@@ -305,6 +304,11 @@
             <version>4.1.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.6.4</version>
+        </dependency>
 
 
     </dependencies>
@@ -329,7 +333,7 @@
             <url>https://repository.apache.org/content/groups/public</url>
         </repository>
 
-       <repository>
+        <repository>
             <id>build.minderupt.com</id>
             <name>Minderupt SonaType Nexus Repository</name>
             <url>http://build.minderupt.com/nexus/content/repositories/releases</url>
