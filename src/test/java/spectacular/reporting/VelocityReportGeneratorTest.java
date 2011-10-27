@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class VelocityUseCaseReportWriterTest {
+public class VelocityReportGeneratorTest {
 
     @Test
     public void testCanMergeBasicDocument() throws Exception {
@@ -22,8 +22,8 @@ public class VelocityUseCaseReportWriterTest {
 
         UseCaseResult result = new UseCaseResult(useCase);
 
-        VelocityUseCaseReportWriter writer = new VelocityUseCaseReportWriter("reporting/velocity/basic_template.vm");
-        String gen = writer.generate(result);
+        VelocityReportGenerator generator = new VelocityReportGenerator("reporting/velocity/basic_template.vm");
+        String gen = generator.generate(result);
 
         assertNotNull(gen);
         assertEquals("TEST", gen.trim());
@@ -47,8 +47,8 @@ public class VelocityUseCaseReportWriterTest {
 
         UseCaseResult result = new UseCaseResult(useCase);
 
-        VelocityUseCaseReportWriter writer = new VelocityUseCaseReportWriter("reporting/velocity/basic_forloop_template.vm");
-        String gen = writer.generate(result);
+        VelocityReportGenerator generator = new VelocityReportGenerator("reporting/velocity/basic_forloop_template.vm");
+        String gen = generator.generate(result);
 
         assertNotNull(gen);
         assertEquals("TEST-0-1-2-3-4-5-6-7-8-9", gen.trim());

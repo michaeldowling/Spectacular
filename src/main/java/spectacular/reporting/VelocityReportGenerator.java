@@ -11,9 +11,10 @@ import spectacular.spec.execution.SpectacularException;
 
 import java.io.StringWriter;
 
-public class VelocityUseCaseReportWriter {
+public class VelocityReportGenerator {
 
     public static final String USE_CASE_TEMPLATE = "reporting/use_case_template.vm";
+    public static final String TOC_RESULTS_TEMPLATE = "reporting/toc_template.vm";
 
     public static final String VELOCITY_RESOURCE_LOADER_KEY = "resource.loader";
     public static final String VELOCITY_RESOURCE_LOADER_CLASSPATH_VALUE = "class";
@@ -24,10 +25,11 @@ public class VelocityUseCaseReportWriter {
 
 
 
-    private static Log LOGGER = LogFactory.getLog(VelocityUseCaseReportWriter.class);
+    private static Log LOGGER = LogFactory.getLog(VelocityReportGenerator.class);
     private String templatePath;
 
-    public VelocityUseCaseReportWriter(String template) {
+
+    public VelocityReportGenerator(String template) {
         this.templatePath = template;
     }
 
