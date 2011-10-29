@@ -1,13 +1,39 @@
 package spectacular.reporting;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import spectacular.data.model.UseCase;
 import spectacular.data.model.UseCaseResult;
 
+import java.io.File;
+
 public class FilesystemReportSink implements ReportSink {
 
     private static Log LOGGER = LogFactory.getLog(FilesystemReportSink.class);
+
+
+    public FilesystemReportSink(String baseDirectory) {
+
+        File baseDir = new File(baseDirectory);
+        if(baseDir.exists()) {
+            try {
+                FileUtils.forceDelete(baseDir);
+            } catch(Exception e) {
+                LOGGER.fatal("Unable to force delete directory for reporting:  " + e);
+                return;
+            }
+        }
+
+        try {
+            FileUtils.forceMkdir(baseDir);
+        } catch(Exception e) {
+            LOGGER.fatal("Unable to create directory for reporting:  " + e);
+            return;
+        }
+
+    }
 
     public void write(Object sourceOfData, String data) {
 
