@@ -1,0 +1,29 @@
+<spectacular>
+
+    <use-cases>
+        <base-location>
+            <path>specs/</path>
+            <include>*.usecase</include>
+        </base-location>
+    </use-cases>
+
+    <step-actions>
+        <base-location>
+            <path>steps/</path>
+            <include>*.actions</include>
+        </base-location>
+    </step-actions>
+
+    <fixtures>
+        <base-location>
+            <path>fixtures/</path>
+            <include>*.groovy</include>
+        </base-location>
+    </fixtures>
+
+    <webdriver-aware>
+        <driver>HTMLUNIT</driver>
+    </webdriver-aware>
+
+
+</spectacular>

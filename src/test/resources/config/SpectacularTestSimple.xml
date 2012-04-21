@@ -1,0 +1,30 @@
+<spectacular>
+
+    <use-cases>
+        <base-location>
+            <path>/base/path/usecase/001</path>
+            <include>*.usecaseinclude</include>
+        </base-location>
+    </use-cases>
+
+    <step-actions>
+        <base-location>
+            <path>/base/path/stepactions/001</path>
+            <include>*.stepactioninclude</include>
+        </base-location>
+    </step-actions>
+
+    <fixtures>
+        <base-location>
+
+            <path>/base/path/fixtures/001</path>
+            <include>*.groovyfixtures</include>
+        </base-location>
+    </fixtures>
+
+    <webdriver-aware>
+        <driver>HTMLUNIT-aware</driver>
+    </webdriver-aware>
+
+
+</spectacular>
