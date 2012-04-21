@@ -1,7 +1,6 @@
 package spectacular;
 
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import org.apache.commons.cli.*;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.XMLConfiguration;
@@ -29,7 +28,7 @@ public class Spectacular {
 
         try {
             spectacularSpine.executeFullLifecycle();
-        } catch(Exception e) {
+        } catch (Exception e) {
             LOGGER.fatal("Error executing spectacular lifecycle:  " + e);
             System.exit(255);
         }
@@ -46,7 +45,7 @@ public class Spectacular {
 
     }
 
-    private static SpectacularConfiguration parseConfiguration(String config) {
+    public static SpectacularConfiguration parseConfiguration(String config) {
 
         File file = new File(config);
         if (!file.exists()) {
@@ -72,23 +71,23 @@ public class Spectacular {
             specConfig.setUseCasesBaseLocationIncludeFilter(conf.getString("use-cases.base-location.include", "*.usecase"));
         }
 
-        if(conf.containsKey("step-actions.base-location.path")) {
+        if (conf.containsKey("step-actions.base-location.path")) {
             specConfig.setStepActionBaseLocation(conf.getString("step-actions.base-location.path"));
         }
 
-        if(conf.containsKey("step-actions.base-location.include")) {
+        if (conf.containsKey("step-actions.base-location.include")) {
             specConfig.setStepActionBaseLocationIncludeFilter(conf.getString("step-actions.base-location.include"));
         }
 
-        if(conf.containsKey("fixtures.base-location.path")) {
+        if (conf.containsKey("fixtures.base-location.path")) {
             specConfig.setFixtureCodeBaseLocation(conf.getString("fixtures.base-location.path"));
         }
 
-        if(conf.containsKey("fixtures.base-location.include")) {
+        if (conf.containsKey("fixtures.base-location.include")) {
             specConfig.setFixtureCodeBaseLocationIncludeFilter(conf.getString("fixtures.base-location.include"));
         }
 
-        if(conf.containsKey("webdriver-aware.driver")) {
+        if (conf.containsKey("webdriver-aware.driver")) {
             specConfig.setSeleniumAwareDriver(conf.getString("webdriver-aware.driver", "HTMLUNIT"));
         }
 

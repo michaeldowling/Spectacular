@@ -1,7 +1,6 @@
 package spectacular.reporting;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import spectacular.data.model.UseCase;
@@ -14,13 +13,17 @@ public class FilesystemReportSink implements ReportSink {
     private static Log LOGGER = LogFactory.getLog(FilesystemReportSink.class);
 
 
+    public FilesystemReportSink() {
+        this(".");
+    }
+
     public FilesystemReportSink(String baseDirectory) {
 
         File baseDir = new File(baseDirectory);
-        if(baseDir.exists()) {
+        if (baseDir.exists()) {
             try {
                 FileUtils.forceDelete(baseDir);
-            } catch(Exception e) {
+            } catch (Exception e) {
                 LOGGER.fatal("Unable to force delete directory for reporting:  " + e);
                 return;
             }
@@ -28,7 +31,7 @@ public class FilesystemReportSink implements ReportSink {
 
         try {
             FileUtils.forceMkdir(baseDir);
-        } catch(Exception e) {
+        } catch (Exception e) {
             LOGGER.fatal("Unable to create directory for reporting:  " + e);
             return;
         }
@@ -37,7 +40,7 @@ public class FilesystemReportSink implements ReportSink {
 
     public void write(Object sourceOfData, String data) {
 
-        if(!(sourceOfData instanceof UseCaseResult)) {
+        if (!(sourceOfData instanceof UseCaseResult)) {
             LOGGER.fatal("Wrong source of data passed in.");
             return;
         }
@@ -51,7 +54,7 @@ public class FilesystemReportSink implements ReportSink {
 
         String title = useCase.getUseCaseTitle();
         title = title.replaceAll("\\W", "_") + ".html";
-        return(title);
+        return (title);
 
 
     }
